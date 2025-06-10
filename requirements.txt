@@ -1,0 +1,10 @@
+Flask~=3.1.1
+pydantic~=2.11.5
+flask-cors~=6.0.0
+requests~=2.32.3
+weaviate~=0.1.2
+weaviate-client~=4.15.0
+openai~=1.82.1
+router~=0.1
+tiktoken
+google-cloud-logging

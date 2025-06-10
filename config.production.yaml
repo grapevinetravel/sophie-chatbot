@@ -1,0 +1,24 @@
+runtime: python310
+region: europe-west1
+entrypoint: flask_entry_point
+timeout: 1800s
+memory: 4092Mi
+ingress_settings: all
+min_instances: 0
+max_instances: 1
+
+secrets:
+  EXPEDIA_API_KEY: projects/grapevine-v2-feb-2025/secrets/EXPEDIA_API_KEY:latest
+  EXPEDIA_SHARED_SECRET: projects/grapevine-v2-feb-2025/secrets/EXPEDIA_SHARED_SECRET:latest
+  OPENAI_APIKEY: projects/grapevine-v2-feb-2025/secrets/OPENAI_APIKEY:latest
+  OPENAI_API_KEY: projects/grapevine-v2-feb-2025/secrets/OPENAI_APIKEY:latest
+  WEAVIATE_API_KEY: projects/grapevine-v2-feb-2025/secrets/WEAVIATE_API_KEY:latest
+  MAPBOX_ACCESS_TOKEN: projects/grapevine-v2-feb-2025/secrets/MAPBOX_ACCESS_TOKEN:latest
+  TINYBIRD_TOKEN: projects/grapevine-v2-feb-2025/secrets/TINYBIRD_TOKEN_PROD:latest
+
+env_vars:
+  ENV: production
+
+extra_args:
+  - --allow-unauthenticated
+  - --trigger-http
