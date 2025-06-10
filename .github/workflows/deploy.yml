@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       entrypoint:
-        description: 'Function entry point (should be flask_entry_point)'
+        description: 'Function entry point (default flask_entry_point)'
         required: true
         type: string
       environment:
