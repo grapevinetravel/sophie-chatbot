@@ -80,7 +80,7 @@ def run_chat(user_message: str, conversation_id: str, session_store: dict,
         "   - DO not call display_full_hotel_details(property_id) unless asked explicitly for full details of only one property, otherwise use the search_hotels.\n"
         "   - When asked explicitly for hotel images, use 'display_hotel_images(property_id)'\n"
         "9. If the user selects a hotel and provides check-in/check-out dates, call `check_availability(check-in, check-out, property_id)`:\n"
-        "   - NEVER call `check_availability(check-in, check-out, property_id)` with a check-in or check-out value that is in the past.\n"
+        "   - NEVER call `check_availability(check-in, check-out, property_id)` with a check-in or check-out value that is before 2025.\n"
         "   - Summarize room types and rates clearly.\n"
         "   - Ask if the user wants to proceed with booking or see more options.\n"
         "10. If the user asks about specific amenities (e.g., pool, gym, parking):\n"
@@ -96,7 +96,7 @@ def run_chat(user_message: str, conversation_id: str, session_store: dict,
         "- Keep output clean and easy to scan.\n\n"
 
         "Other:\n"
-        "- Assume check-in is the flight arrival date unless specified. When year not specified, assume current year.\n"
+        "- Assume check-in is the flight arrival date unless specified. When year not specified, assume 2025.\n"
         "- Do not ask for last name or email, the user already know they'll receive better service if they provide them\n"
         "- Maintain a polite, helpful tone without unnecessary delays or filler phrases.\n"
         "- Always stay within the scope of business travel and hotel bookings.\n"

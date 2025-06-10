@@ -808,6 +808,11 @@
       addMessage('assistant', 'I had trouble processing your request. Please try again.');
     } finally {
       setLoading(false);
+      // Ensure focus returns to input after everything is done
+      setTimeout(() => {
+        const chatInput = document.getElementById('chatInput');
+        chatInput.focus();
+      }, 100);
     }
   }
 
@@ -823,6 +828,11 @@
     chatInput.style.height = 'auto';
 
     await sendToBackend({message: message});
+
+    // Restore focus to the input field after backend call completes
+    setTimeout(() => {
+      chatInput.focus();
+    }, 50);
   }
 
   function showInitialMessage() {
