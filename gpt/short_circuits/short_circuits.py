@@ -16,23 +16,27 @@ class ShortCircuit:
     """
     Main handler that routes to specific function handlers
     """
-    if func_name == "resolve_user_and_trips":
-      return handle_resolve_user_and_trips(result)
-    elif func_name == "get_hotels_by_corporate_geo":
-      return handle_hotel_recommendations(result)
-    elif func_name == "search_hotels":
-      return search_hotels_result(result)
-    elif func_name == "check_availability":
-      return handle_hotel_availability(result)
-    elif func_name == "display_full_hotel_details":
-      return handle_display_full_hotel_details(result)
-    elif func_name == "display_hotel_images":
-      return handle_display_hotel_images(result)
-    elif func_name == "send_reservation_request":
-      return handle_hotel_booking()
-    elif func_name == "get_directions":
-      return display_directions(result)
-    elif func_name == "get_location":
-      return display_location(result)
-    # Add more handlers as needed
-    return None
+    try:
+      if func_name == "resolve_user_and_trips":
+        return handle_resolve_user_and_trips(result)
+      elif func_name == "get_hotels_by_corporate_geo":
+        return handle_hotel_recommendations(result)
+      elif func_name == "search_hotels":
+        return search_hotels_result(result)
+      elif func_name == "check_availability":
+        return handle_hotel_availability(result)
+      elif func_name == "display_full_hotel_details":
+        return handle_display_full_hotel_details(result)
+      elif func_name == "display_hotel_images":
+        return handle_display_hotel_images(result)
+      elif func_name == "send_reservation_request":
+        return handle_hotel_booking()
+      elif func_name == "get_directions":
+        return display_directions(result)
+      elif func_name == "get_location":
+        return display_location(result)
+      # Add more handlers as needed
+      return None
+    except Exception as e:
+      print("ERROR DURING TOOL CALL " + func_name + " " + result + " " + str(e))
+      return None

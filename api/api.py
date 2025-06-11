@@ -14,19 +14,23 @@ class ChatRequest(BaseModel):
 @app.route("/chat", methods=["POST"])
 def chat():
     data = request.get_json()
+    print("Chat request:" + data)
+
     if not data or "message" not in data:
         return jsonify({"error": "Missing message"}), 400
 
     req = ChatRequest(**data)
     conv_id = req.conversation_id or str(uuid4())
     reply = run_chat(req.message, conv_id, conversation_store)
-    return jsonify({"reply": reply, "conversation_id": conv_id})
+    result = jsonify({"reply": reply, "conversation_id": conv_id})
+    print("Chat response:" + result)
 
+    return result
 @app.route("/login", methods=["POST"])
 def login():
   # Parse incoming JSON data
   data = request.get_json()
-  print(data)
+  print("Login request:" + data)
   # Check if full_name and work_email are provided
   if not data or "full_name" not in data or "work_email" not in data:
     return jsonify({"error": "Missing full_name or work_email"}), 400

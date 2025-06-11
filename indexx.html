@@ -1,0 +1,1672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sophie - Corporate Travel Assistant</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .chat-container {
+      width: 90%;
+      max-width: 800px;
+      height: 90vh;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      animation: slideIn 0.6s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    /* Welcome Overlay Styles */
+    .welcome-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.5s ease-out;
+      padding: 20px;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    .welcome-modal {
+      background: white;
+      border-radius: 20px;
+      padding: 25px;
+      max-width: 500px;
+      width: 100%;
+      max-height: calc(100vh - 40px);
+      overflow-y: auto;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+      animation: modalSlideIn 0.6s ease-out;
+      text-align: center;
+    }
+
+    @keyframes modalSlideIn {
+      from {
+        transform: translateY(30px) scale(0.95);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+    }
+
+    .welcome-modal .logo {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, #4f46e5, #3b82f6);
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 18px;
+      color: white;
+      font-size: 28px;
+      font-weight: bold;
+      box-shadow: 0 8px 25px rgba(79, 70, 229, 0.3);
+    }
+
+    .welcome-modal h2 {
+      color: #4f46e5;
+      font-size: 22px;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .welcome-modal .subtitle {
+      color: #64748b;
+      font-size: 13px;
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      color: #374151;
+      font-weight: 600;
+      margin-bottom: 5px;
+      font-size: 12px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 2px solid #e5e7eb;
+      border-radius: 10px;
+      font-size: 14px;
+      font-family: inherit;
+      transition: all 0.3s ease;
+      background: #f9fafb;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #4f46e5;
+      background: white;
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    }
+
+    .quick-start-section {
+      margin-top: 18px;
+      text-align: center;
+    }
+
+    .quick-start-title {
+      color: #374151;
+      font-weight: 600;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .preset-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .preset-button {
+      padding: 12px 14px;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      background: #f9fafb;
+      color: #374151;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .preset-button:hover {
+      border-color: #4f46e5;
+      background: #f0f4ff;
+      color: #4f46e5;
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px rgba(79, 70, 229, 0.15);
+    }
+
+    .preset-button.selected {
+      border-color: #4f46e5;
+      background: linear-gradient(135deg, #4f46e5, #3b82f6);
+      color: white;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+    }
+
+    .persona-icon {
+      font-size: 20px;
+      margin-bottom: 2px;
+    }
+
+    .persona-title {
+      font-weight: 600;
+      font-size: 13px;
+      margin-bottom: 1px;
+    }
+
+    .persona-name {
+      font-size: 11px;
+      font-weight: 500;
+      opacity: 0.7;
+      margin-bottom: 3px;
+    }
+
+    .persona-subtitle {
+      font-size: 10px;
+      opacity: 0.7;
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    .preset-button.selected .persona-name,
+    .preset-button.selected .persona-subtitle {
+      opacity: 0.9;
+    }
+
+    .continue-button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #4f46e5, #3b82f6);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 6px;
+    }
+
+    .continue-button:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(79, 70, 229, 0.3);
+    }
+
+    .continue-button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .skip-link {
+      color: #6b7280;
+      font-size: 13px;
+      margin-top: 12px;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .skip-link:hover {
+      color: #4f46e5;
+    }
+
+    .chat-header {
+      background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+      color: white;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      box-shadow: 0 4px 20px rgba(79, 70, 229, 0.3);
+    }
+
+    .logo {
+      width: 50px;
+      height: 50px;
+      background: white;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #4f46e5;
+      font-size: 18px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-info h1 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .header-info p {
+      opacity: 0.9;
+      font-size: 14px;
+    }
+
+    .status-indicator {
+      width: 8px;
+      height: 8px;
+      background: #10b981;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+      margin-left: auto;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      scroll-behavior: smooth;
+    }
+
+    .chat-messages::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .chat-messages::-webkit-scrollbar-track {
+      background: #f1f5f9;
+      border-radius: 3px;
+    }
+
+    .chat-messages::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 3px;
+    }
+
+    .message {
+      display: flex;
+      gap: 12px;
+      animation: messageSlide 0.4s ease-out;
+    }
+
+    @keyframes messageSlide {
+      from {
+        transform: translateY(10px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .message.user {
+      flex-direction: row-reverse;
+    }
+
+    .message-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .message.assistant .message-avatar {
+      background: linear-gradient(135deg, #4f46e5, #3b82f6);
+      color: white;
+    }
+
+    .message.user .message-avatar {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+    }
+
+    .message-content {
+      max-width: 70%;
+      padding: 16px 20px;
+      border-radius: 20px;
+      line-height: 1.5;
+      position: relative;
+    }
+
+    .message.assistant .message-content {
+      background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+      border: 1px solid #e2e8f0;
+      border-bottom-left-radius: 6px;
+    }
+
+    .message.user .message-content {
+      background: linear-gradient(135deg, #4f46e5, #3b82f6);
+      color: white;
+      border-bottom-right-radius: 6px;
+    }
+
+    .message-time {
+      font-size: 11px;
+      opacity: 0.6;
+      margin-top: 4px;
+    }
+
+    .chat-input-container {
+      padding: 20px;
+      background: rgba(248, 250, 252, 0.8);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      gap: 12px;
+      align-items: flex-end;
+    }
+
+    .chat-input {
+      flex: 1;
+      padding: 16px 20px;
+      border: 2px solid #e2e8f0;
+      border-radius: 25px;
+      font-size: 16px;
+      font-family: inherit;
+      background: white;
+      transition: all 0.3s ease;
+      resize: none;
+      min-height: 24px;
+      max-height: 120px;
+      line-height: 1.5;
+    }
+
+    .chat-input:focus {
+      outline: none;
+      border-color: #4f46e5;
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    }
+
+    .send-button {
+      width: 50px;
+      height: 50px;
+      border: none;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #4f46e5, #3b82f6);
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      font-size: 18px;
+    }
+
+    .send-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+    }
+
+    .send-button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .typing-indicator {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      padding: 20px 0;
+    }
+
+    .typing-dots {
+      display: flex;
+      gap: 4px;
+    }
+
+    .typing-dot {
+      width: 8px;
+      height: 8px;
+      background: #4f46e5;
+      border-radius: 50%;
+      animation: typingBounce 1.4s infinite ease-in-out;
+    }
+
+    .typing-dot:nth-child(1) {
+      animation-delay: -0.32s;
+    }
+
+    .typing-dot:nth-child(2) {
+      animation-delay: -0.16s;
+    }
+
+    @keyframes typingBounce {
+      0%, 80%, 100% {
+        transform: scale(0.8);
+        opacity: 0.5;
+      }
+      40% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .welcome-animation {
+      text-align: center;
+      padding: 40px 20px;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .welcome-logo {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #4f46e5, #3b82f6);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      color: white;
+      font-size: 32px;
+      font-weight: bold;
+      box-shadow: 0 8px 25px rgba(79, 70, 229, 0.3);
+    }
+
+    /* Trip Display Styles */
+    .trips-container {
+      margin: 10px 0;
+      font-family: inherit;
+    }
+
+    .trip-card {
+      background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      color: white;
+      box-shadow: 0 3px 10px rgba(79, 70, 229, 0.2);
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .trip-card:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+    }
+
+    /* Hotel Display Styles */
+    .hotel-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .hotel-card:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 15px rgba(79, 70, 229, 0.1);
+      border-color: #4f46e5;
+    }
+
+    .alert {
+      padding: 14px 16px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 12px 0;
+      font-size: 0.9em;
+    }
+
+    .alert-warning {
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #fde68a;
+    }
+
+    .alert-info {
+      background: #dbeafe;
+      color: #1e40af;
+      border: 1px solid #bfdbfe;
+    }
+
+    /* Image Modal Styles */
+    .image-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    .image-modal img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    }
+
+    .image-modal-caption {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      max-width: 80%;
+      text-align: center;
+    }
+
+    .image-modal-close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: white;
+      font-size: 2em;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 50%;
+      transition: background 0.2s ease;
+    }
+
+    .image-modal-close:hover {
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .chat-container {
+        width: 95%;
+        height: 95vh;
+        border-radius: 15px;
+      }
+
+      .welcome-overlay {
+        padding: 15px;
+      }
+
+      .welcome-modal {
+        padding: 20px 18px;
+        max-height: calc(100vh - 30px);
+        max-width: 100%;
+      }
+
+      .welcome-modal .logo {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+        margin-bottom: 15px;
+      }
+
+      .welcome-modal h2 {
+        font-size: 18px;
+        margin-bottom: 5px;
+      }
+
+      .welcome-modal .subtitle {
+        font-size: 12px;
+        margin-bottom: 16px;
+      }
+
+      .form-group {
+        margin-bottom: 12px;
+      }
+
+      .form-group input {
+        padding: 9px 11px;
+      }
+
+      .quick-start-section {
+        margin-top: 15px;
+      }
+
+      .quick-start-title {
+        font-size: 13px;
+        margin-bottom: 8px;
+      }
+
+      .preset-buttons {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        margin-bottom: 15px;
+      }
+
+      .preset-button {
+        padding: 10px 12px;
+        font-size: 11px;
+      }
+
+      .persona-icon {
+        font-size: 18px;
+      }
+
+      .persona-title {
+        font-size: 12px;
+      }
+
+      .persona-name {
+        font-size: 10px;
+      }
+
+      .persona-subtitle {
+        font-size: 9px;
+      }
+
+      .continue-button {
+        padding: 10px;
+        font-size: 13px;
+        margin-top: 5px;
+      }
+
+      .skip-link {
+        font-size: 12px;
+        margin-top: 10px;
+      }
+
+      .message-content {
+        max-width: 85%;
+      }
+
+      .chat-header {
+        padding: 15px;
+      }
+
+      .header-info h1 {
+        font-size: 20px;
+      }
+
+      .image-modal img {
+        max-width: 95%;
+        max-height: 85%;
+      }
+
+      .image-modal-caption {
+        bottom: 10px;
+        font-size: 0.9em;
+        padding: 8px 16px;
+      }
+
+      .image-modal-close {
+        top: 10px;
+        right: 15px;
+        font-size: 1.5em;
+        width: 35px;
+        height: 35px;
+      }
+    }
+  </style>
+  <script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
+  <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' />
+</head>
+<body>
+<!-- Welcome Overlay -->
+<div class="welcome-overlay" id="welcomeOverlay">
+  <div class="welcome-modal">
+    <div class="logo">S</div>
+    <h2>Welcome to Sophie</h2>
+    <p class="subtitle">Your personal corporate travel assistant. To get started, please provide your details below.</p>
+
+    <form id="welcomeForm">
+      <div class="form-group">
+        <label for="userName">Full Name</label>
+        <input type="text" id="userName" name="userName" placeholder="Enter your full name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="userEmail">Work Email</label>
+        <input type="email" id="userEmail" name="userEmail" placeholder="Enter your work email" required>
+      </div>
+    </form>
+
+    <div class="quick-start-section">
+      <div class="quick-start-title">Select Your Corporate Traveler Profile</div>
+      <div class="preset-buttons">
+        <div class="preset-button" data-persona="sales_executive">
+          <div class="persona-icon">💼</div>
+          <div class="persona-title">Sales Executive</div>
+          <div class="persona-name">James Mitchell</div>
+          <div class="persona-subtitle">Premium hotels, business districts</div>
+        </div>
+        <div class="preset-button" data-persona="startup_founder">
+          <div class="persona-icon">🚀</div>
+          <div class="persona-title">Startup Founder</div>
+          <div class="persona-name">Sarah Chen</div>
+          <div class="persona-subtitle">Budget-conscious, flexible</div>
+        </div>
+        <div class="preset-button" data-persona="consultant">
+          <div class="persona-icon">📊</div>
+          <div class="persona-title">Consultant</div>
+          <div class="persona-name">David Rodriguez</div>
+          <div class="persona-subtitle">Extended stays, business facilities</div>
+        </div>
+        <div class="preset-button" data-persona="tech_manager">
+          <div class="persona-icon">💻</div>
+          <div class="persona-title">Tech Manager</div>
+          <div class="persona-name">Emily Park</div>
+          <div class="persona-subtitle">Modern amenities, tech hubs</div>
+        </div>
+      </div>
+
+      <button type="button" class="continue-button" id="continueButton" disabled>
+        Continue to Chat
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="chat-container">
+  <div class="chat-header">
+    <div class="logo">S</div>
+    <div class="header-info">
+      <h1>Sophie</h1>
+      <p>Corporate Travel Assistant</p>
+    </div>
+    <div class="status-indicator"></div>
+  </div>
+
+  <div class="chat-messages" id="chatMessages">
+    <div class="welcome-animation">
+      <div class="welcome-logo">S</div>
+      <h2 style="color: #4f46e5; margin-bottom: 10px;">Welcome to Grapevine Travel</h2>
+      <p style="color: #64748b; font-size: 16px;">I'm Sophie, your personal corporate travel assistant</p>
+    </div>
+  </div>
+
+  <div class="chat-input-container">
+            <textarea
+                class="chat-input"
+                id="chatInput"
+                placeholder="Type your message..."
+                rows="1"
+            ></textarea>
+    <button class="send-button" id="sendButton">
+      <span>→</span>
+    </button>
+  </div>
+</div>
+
+<script>
+  // Global variables
+  let conversationId = null;
+  let isLoading = false;
+  let userName = '';
+  let userEmail = '';
+  let selectedPersona = '';
+  let userProfile = null;
+
+  // Predefined corporate traveler personas
+  const corporatePersonas = {
+    sales_executive: {
+      name: "James Mitchell",
+      email: "james.mitchell@salesforce-corp.com",
+      description: "I'm James Mitchell, Senior Sales Executive at Salesforce Corp. My email is james.mitchell@salesforce-corp.com."
+    },
+    startup_founder: {
+      name: "Sarah Chen",
+      email: "sarah.chen@nextstep-ventures.com",
+      description: "I'm Sarah Chen, Founder & CEO of NextStep Ventures. My email is sarah.chen@nextstep-ventures.com."
+    },
+    consultant: {
+      name: "David Rodriguez",
+      email: "david.rodriguez@mckinsey-consulting.com",
+      description: "I'm David Rodriguez, Senior Manager at McKinsey Consulting. My email is david.rodriguez@mckinsey-consulting.com."
+    },
+    tech_manager: {
+      name: "Emily Park",
+      email: "emily.park@techcorp-innovations.com",
+      description: "I'm Emily Park, Technical Product Manager at TechCorp Innovations. My email is emily.park@techcorp-innovations.com."
+    }
+  };
+
+  // Set Mapbox token
+  mapboxgl.accessToken = 'pk.eyJ1IjoiYWRtaW4tZ3JhcGV2aW5lLXRyYXZlbCIsImEiOiJja2V2a3lkZTczdTYyMnlwaXQzcXNxbHZxIn0.lRbK-DDBPafm6zYulqcTMw';
+
+  // Welcome Overlay Functions
+  function initializeWelcomeOverlay() {
+    const userNameInput = document.getElementById('userName');
+    const userEmailInput = document.getElementById('userEmail');
+    const continueButton = document.getElementById('continueButton');
+    const presetButtons = document.querySelectorAll('.preset-button');
+
+    // Handle form validation
+    function validateForm() {
+      const name = userNameInput.value.trim();
+      const email = userEmailInput.value.trim();
+      const isValid = name.length > 0 && email.length > 0 && email.includes('@') && selectedPersona;
+      continueButton.disabled = !isValid;
+      return isValid;
+    }
+
+    userNameInput.addEventListener('input', validateForm);
+    userEmailInput.addEventListener('input', validateForm);
+
+    // Handle persona selection
+    presetButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Remove selected class from all buttons
+        presetButtons.forEach(btn => btn.classList.remove('selected'));
+        // Add selected class to clicked button
+        button.classList.add('selected');
+        selectedPersona = button.dataset.persona;
+
+        // Validate form after persona selection
+        validateForm();
+      });
+    });
+
+    // Handle continue button
+    continueButton.addEventListener('click', async () => {
+      if (validateForm()) {
+        userName = userNameInput.value.trim();
+        userEmail = userEmailInput.value.trim();
+        userProfile = corporatePersonas[selectedPersona];
+
+        // Send login request to backend
+        try {
+          await fetch('http://localhost:8080/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              full_name: userName,
+              work_email: userEmail
+            })
+          });
+        } catch (error) {
+          console.log('Login request failed, but continuing with chat:', error);
+        }
+
+        // Hide overlay with animation
+        const overlay = document.getElementById('welcomeOverlay');
+        overlay.style.animation = 'fadeOut 0.3s ease-out forwards';
+
+        setTimeout(() => {
+          overlay.style.display = 'none';
+          startChatSession();
+        }, 300);
+      }
+    });
+
+    // Handle Enter key in form
+    userNameInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        userEmailInput.focus();
+      }
+    });
+
+    userEmailInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter' && validateForm()) {
+        e.preventDefault();
+        continueButton.click();
+      }
+    });
+  }
+
+  // Add fadeOut animation to CSS
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+
+  function startChatSession() {
+    // Focus on chat input
+    setTimeout(() => {
+      const chatInput = document.getElementById('chatInput');
+      chatInput.focus();
+    }, 100);
+
+    // Always show initial message first
+    showInitialMessage();
+
+    // Send the persona description as the initial message after a delay
+    if (userProfile) {
+      setTimeout(() => {
+        addMessage('user', `Hello, ${userProfile.description}`);
+
+        sendToBackend({
+          message: userProfile.description,
+          persona: selectedPersona,
+          is_initial_message: true
+        });
+      }, 1500);
+    }
+  }
+
+  // Global functions for buttons (existing functions remain the same)
+  function selectTrip(tripNumber) {
+    addMessage('user', `I'd like hotel suggestions for Trip ${tripNumber}`);
+    sendToBackend({
+      message: `Selected trip ${tripNumber} for hotel recommendations`,
+      trip_selection: tripNumber
+    });
+  }
+
+  function selectHotel(propertyId, hotelName) {
+    addMessage('user', `I'd like to book ${hotelName}`);
+    sendToBackend({
+      message: `Selected hotel: ${hotelName}`,
+      hotel_selection: {
+        property_id: propertyId,
+        hotel_name: hotelName
+      }
+    });
+  }
+
+  function selectRoom(rateId, roomDescription, totalPrice) {
+    addMessage('user', `I'd like to book the ${roomDescription} for £${totalPrice}`);
+    sendToBackend({
+      message: `Selected room: ${roomDescription} for £${totalPrice}`,
+      room_selection: {
+        rate_id: rateId,
+        room_description: roomDescription,
+        total_price: totalPrice
+      }
+    });
+  }
+
+  function checkAvailability(propertyId, name) {
+    addMessage('user', `Check availability and rates for ${name}`);
+    sendToBackend({
+      message: `Check availability and rates for ${name} (Property ID: ${propertyId})`,
+      action: 'check_availability',
+      hotel_details: {
+        property_id: propertyId,
+        name: name
+      }
+    });
+  }
+
+  function showHotelLocation(hotelName, hotelAddress) {
+    addMessage('user', `Show me the location of ${hotelName}`);
+    sendToBackend({
+      message: `Show me the location of ${hotelName}`,
+      action: 'show_hotel_location',
+      hotel_location: {
+        name: hotelName,
+        address: hotelAddress
+      }
+    });
+  }
+
+  function viewHotelImages(propertyId, name) {
+    addMessage('user', `Show me images for ${name}`);
+    sendToBackend({
+      message: `Show me images for ${name} (Property ID: ${propertyId})`,
+      action: 'view_hotel_images',
+      hotel_details: {
+        property_id: propertyId,
+        name: name
+      }
+    });
+  }
+
+  function showHotelFullInfo(expediaId, name, propertyId) {
+    addMessage('user', `I'd like to see full info for the hotel ${name}`);
+    sendToBackend({
+      message: `I'd like to see full info for the property_id ${propertyId}, name ${name}`,
+      hotel_info: {
+        expedia_id: expediaId,
+        property_id: propertyId,
+        name: name
+      }
+    });
+  }
+
+  function selectSearchHotel(expediaId, hotelName, hotelId) {
+    addMessage('user', `I'd like to check availability for ${hotelName}`);
+    sendToBackend({
+      message: `Check availability for ${hotelName}`,
+      search_hotel_selection: {
+        expedia_id: expediaId,
+        hotel_name: hotelName,
+        hotel_id: hotelId
+      }
+    });
+  }
+
+  function requestMoreHotels() {
+    addMessage('user', 'Show me more hotel options');
+    sendToBackend({
+      message: 'Show me more hotel options',
+      action: 'more_hotels'
+    });
+  }
+
+  function refineCentralitySearch() {
+    addMessage('user', 'Show me only city center hotels');
+    sendToBackend({
+      message: 'Refine search: centrality',
+      search_refinement: {
+        type: 'centrality'
+      }
+    });
+  }
+
+  function refineSearchByPrice() {
+    addMessage('user', 'I want to filter hotels by price range');
+    sendToBackend({
+      message: 'Refine search: price_filter',
+      search_refinement: {
+        type: 'price_filter'
+      }
+    });
+  }
+
+  function filterByPrice(priceRange) {
+    const rangeMessages = {
+      'budget': 'Show me hotels under £100 per night',
+      'midrange': 'Show me hotels between £100-£150 per night',
+      'premium': 'Show me hotels between £150-£200 per night',
+      'luxury': 'Show me luxury hotels over £200 per night'
+    };
+
+    addMessage('user', rangeMessages[priceRange] || 'Filter hotels by price');
+    sendToBackend({
+      message: `Filter by price: ${priceRange}`,
+      price_filter: {
+        range: priceRange
+      }
+    });
+  }
+
+  // ===== MAPBOX FUNCTIONS =====
+
+  // Function to initialize a location map (single pin)
+  async function initializeLocationMap(mapId, locationData) {
+    console.log('Initializing location map:', mapId, locationData);
+
+    const map = new mapboxgl.Map({
+      container: mapId,
+      style: 'mapbox://styles/mapbox/streets-v12',
+      center: [locationData.lng, locationData.lat],
+      zoom: 15
+    });
+
+    // Store map instance globally
+    window[`mapInstance_${mapId}`] = map;
+    window[`locationData_${mapId}`] = locationData;
+
+    map.on('load', function () {
+      console.log('Location map loaded, adding marker');
+
+      // Add marker for the location
+      new mapboxgl.Marker({color: '#22c55e'})
+        .setLngLat([locationData.lng, locationData.lat])
+        .setPopup(new mapboxgl.Popup().setHTML(`<strong>${locationData.name}</strong><br>Lat: ${locationData.lat}<br>Lng: ${locationData.lng}`))
+        .addTo(map);
+    });
+  }
+
+  // Function to initialize a map with directions
+  async function initializeDirectionsMap(mapId, routeData) {
+    console.log('Initializing map:', mapId, routeData);
+
+    const map = new mapboxgl.Map({
+      container: mapId,
+      style: 'mapbox://styles/mapbox/streets-v12',
+      center: [routeData.origin.lng, routeData.origin.lat],
+      zoom: 14
+    });
+
+    // Store map instance globally
+    window[`mapInstance_${mapId}`] = map;
+    window[`routeData_${mapId}`] = routeData;
+
+    map.on('load', function () {
+      console.log('Map loaded, getting directions');
+      getAndDisplayDirections(mapId, routeData.mode);
+    });
+  }
+
+  async function getAndDisplayDirections(mapId, mode) {
+    const map = window[`mapInstance_${mapId}`];
+    const routeData = window[`routeData_${mapId}`];
+
+    console.log('Getting directions for mode:', mode);
+
+    try {
+      // Get directions from Mapbox Directions API
+      const directionsUrl = `https://api.mapbox.com/directions/v5/mapbox/${mode}/${routeData.origin.lng},${routeData.origin.lat};${routeData.destination.lng},${routeData.destination.lat}`;
+      const params = new URLSearchParams({
+        access_token: mapboxgl.accessToken,
+        geometries: 'geojson',
+        steps: 'true'
+      });
+
+      console.log('Fetching directions:', `${directionsUrl}?${params}`);
+
+      const response = await fetch(`${directionsUrl}?${params}`);
+      const data = await response.json();
+
+      console.log('Directions response:', data);
+
+      if (data.routes && data.routes.length > 0) {
+        displayRoute(mapId, data.routes[0]);
+      } else {
+        console.error('No route found');
+      }
+    } catch (error) {
+      console.error('Error getting directions:', error);
+    }
+  }
+
+  function displayRoute(mapId, route) {
+    const map = window[`mapInstance_${mapId}`];
+    const routeData = window[`routeData_${mapId}`];
+
+    console.log('Displaying route');
+
+    // Clear existing layers and sources
+    if (map.getSource('route')) {
+      map.removeLayer('route');
+      map.removeSource('route');
+    }
+
+    // Add route
+    map.addSource('route', {
+      type: 'geojson',
+      data: {
+        type: 'Feature',
+        properties: {},
+        geometry: route.geometry
+      }
+    });
+
+    map.addLayer({
+      id: 'route',
+      type: 'line',
+      source: 'route',
+      layout: {
+        'line-join': 'round',
+        'line-cap': 'round'
+      },
+      paint: {
+        'line-color': '#059669', // Green for walking
+        'line-width': 5
+      }
+    });
+
+    // Clear existing markers
+    const existingMarkers = document.querySelectorAll(`#${mapId} .mapboxgl-marker`);
+    existingMarkers.forEach(marker => marker.remove());
+
+    // Add markers
+    new mapboxgl.Marker({color: '#22c55e'})
+    .setLngLat([routeData.origin.lng, routeData.origin.lat])
+    .setPopup(new mapboxgl.Popup().setHTML(`<strong>Start</strong><br>${routeData.origin.name}`))
+    .addTo(map);
+
+    new mapboxgl.Marker({color: '#dc2626'})
+    .setLngLat([routeData.destination.lng, routeData.destination.lat])
+    .setPopup(new mapboxgl.Popup().setHTML(`<strong>Destination</strong><br>${routeData.destination.name}`))
+    .addTo(map);
+
+    // Fit map to route
+    const coordinates = route.geometry.coordinates;
+    const bounds = coordinates.reduce(function (bounds, coord) {
+      return bounds.extend(coord);
+    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
+
+    map.fitBounds(bounds, {
+      padding: 50
+    });
+  }
+
+  function changeMapMode(mapId, mode) {
+    console.log('Changing mode to:', mode);
+    const routeData = window[`routeData_${mapId}`];
+
+    // Update route data mode
+    routeData.mode = mode;
+
+    // Get new directions
+    getAndDisplayDirections(mapId, mode);
+
+    // Update button states
+    const buttons = document.querySelectorAll(`button[onclick*="${mapId}"]`);
+    buttons.forEach(button => {
+      const isActive = button.textContent.toLowerCase().includes(mode);
+      if (isActive) {
+        if (mode === 'driving') {
+          button.style.background = '#4f46e5';
+          button.style.color = 'white';
+        } else if (mode === 'walking') {
+          button.style.background = '#059669';
+          button.style.color = 'white';
+        } else if (mode === 'cycling') {
+          button.style.background = '#ea580c';
+          button.style.color = 'white';
+        }
+      } else {
+        button.style.background = 'transparent';
+        if (button.textContent.toLowerCase().includes('driving')) {
+          button.style.color = '#4f46e5';
+          button.style.borderColor = '#4f46e5';
+        } else if (button.textContent.toLowerCase().includes('walking')) {
+          button.style.color = '#059669';
+          button.style.borderColor = '#059669';
+        } else if (button.textContent.toLowerCase().includes('cycling')) {
+          button.style.color = '#ea580c';
+          button.style.borderColor = '#ea580c';
+        }
+      }
+    });
+  }
+
+  // ===== HOTEL GALLERY FUNCTIONS =====
+
+  // Image modal functionality
+  function openImageModal(imageUrl, title, hotelName) {
+    const modal = document.createElement('div');
+    modal.className = 'image-modal';
+
+    modal.innerHTML = `
+      <div class="image-modal-close">✕</div>
+      <img src="${imageUrl}" alt="${title}" />
+      <div class="image-modal-caption">
+        ${title} - ${hotelName}
+      </div>
+    `;
+
+    modal.onclick = () => modal.remove();
+    document.body.appendChild(modal);
+  }
+
+  function showMoreImages(category, propertyId) {
+    addMessage('user', `Show me more ${category} images`);
+    sendToBackend({
+      message: `Show more ${category} images`,
+      view_more_images: {
+        property_id: propertyId,
+        category: category
+      }
+    });
+  }
+
+  function goBackToHotelDetails(propertyId, hotelName) {
+    addMessage('user', `Show hotel details for ${hotelName}`);
+    sendToBackend({
+      message: `Show hotel details`,
+      hotel_details: {
+        property_id: propertyId
+      }
+    });
+  }
+
+  function selectRoomType(roomId, roomName, propertyId) {
+    addMessage('user', `Check availability for ${roomName}`);
+    sendToBackend({
+      message: `Check room availability: ${roomName}`,
+      room_selection: {
+        room_id: roomId,
+        room_name: roomName,
+        property_id: propertyId
+      }
+    });
+  }
+
+  // ===== END HOTEL GALLERY FUNCTIONS =====
+
+  // Core functions
+  function addMessage(sender, content) {
+    const messagesContainer = document.getElementById('chatMessages');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${sender}`;
+
+    const now = new Date();
+    const timeString = now.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
+
+    messageDiv.innerHTML = `
+                <div class="message-avatar">${sender === 'assistant' ? 'S' : 'U'}</div>
+                <div class="message-content">
+                    ${formatMessageContent(content)}
+                    <div class="message-time">${timeString}</div>
+                </div>
+            `;
+
+    messagesContainer.appendChild(messageDiv);
+    scrollToBottom();
+
+    // Check for maps in the newly added message and initialize them
+    setTimeout(() => {
+      initializeMapsInMessage(messageDiv);
+    }, 100);
+  }
+
+  function initializeMapsInMessage(messageDiv) {
+    // Find all map containers in this message
+    const mapElements = messageDiv.querySelectorAll('[id^="map_"], [id^="location_"]');
+
+    mapElements.forEach(mapElement => {
+      const mapId = mapElement.id;
+      console.log('Found map element:', mapId);
+
+      // Check if it's a location map or directions map
+      const isLocationMap = mapId.startsWith('location_');
+      const isDirectionsMap = mapId.startsWith('map_');
+
+      if (isLocationMap) {
+        // Look for location data
+        const locationDataKey = `locationData_${mapId}`;
+
+        if (window[locationDataKey]) {
+          console.log('Found location data for:', mapId, window[locationDataKey]);
+          initializeLocationMap(mapId, window[locationDataKey]);
+        } else {
+          console.log('Location data not found for:', mapId);
+
+          // Try to find and execute any scripts in this message
+          const scripts = messageDiv.querySelectorAll('script');
+          scripts.forEach(script => {
+            try {
+              eval(script.textContent);
+              console.log('Executed script for location map:', mapId);
+
+              // Now try to initialize the location map
+              if (window[locationDataKey]) {
+                initializeLocationMap(mapId, window[locationDataKey]);
+              }
+            } catch (error) {
+              console.error('Error executing location map script:', error);
+            }
+          });
+        }
+
+      } else if (isDirectionsMap) {
+        // Look for route data
+        const routeDataKey = `routeData_${mapId}`;
+
+        if (window[routeDataKey]) {
+          console.log('Found route data for:', mapId, window[routeDataKey]);
+          initializeDirectionsMap(mapId, window[routeDataKey]);
+        } else {
+          console.log('Route data not found for:', mapId);
+
+          // Try to find and execute any scripts in this message
+          const scripts = messageDiv.querySelectorAll('script');
+          scripts.forEach(script => {
+            try {
+              eval(script.textContent);
+              console.log('Executed script for directions map:', mapId);
+
+              // Now try to initialize the directions map
+              if (window[routeDataKey]) {
+                initializeDirectionsMap(mapId, window[routeDataKey]);
+              }
+            } catch (error) {
+              console.error('Error executing directions map script:', error);
+            }
+          });
+        }
+      }
+    });
+  }
+
+  function formatMessageContent(content) {
+    if (content.includes('<div') || content.includes('<p') || content.includes('<h')) {
+      return content;
+    } else {
+      return content.replace(/\n/g, '<br>');
+    }
+  }
+
+  function showTypingIndicator() {
+    const messagesContainer = document.getElementById('chatMessages');
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'message assistant typing-indicator';
+    typingDiv.id = 'typingIndicator';
+    typingDiv.innerHTML = `
+                <div class="message-avatar">S</div>
+                <div class="message-content">
+                    <div class="typing-dots">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                </div>
+            `;
+
+    messagesContainer.appendChild(typingDiv);
+    scrollToBottom();
+  }
+
+  function hideTypingIndicator() {
+    const typingIndicator = document.getElementById('typingIndicator');
+    if (typingIndicator) {
+      typingIndicator.remove();
+    }
+  }
+
+  function scrollToBottom() {
+    const messagesContainer = document.getElementById('chatMessages');
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  }
+
+  function setLoading(loading) {
+    isLoading = loading;
+    const sendButton = document.getElementById('sendButton');
+    const chatInput = document.getElementById('chatInput');
+    sendButton.disabled = loading;
+    chatInput.disabled = loading;
+  }
+
+  async function sendToBackend(requestBody) {
+    showTypingIndicator();
+    setLoading(true);
+
+    try {
+      if (conversationId) {
+        requestBody.conversation_id = conversationId;
+      }
+
+      // Include persona information if available
+      if (selectedPersona) {
+        requestBody.persona = selectedPersona;
+      }
+      if (userProfile) {
+        requestBody.user_profile = userProfile;
+      }
+
+      const response = await fetch('http://localhost:8080/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody)
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (!conversationId && data.conversation_id) {
+        conversationId = data.conversation_id;
+      }
+
+      hideTypingIndicator();
+      addMessage('assistant', data.reply || data.message || data.response || 'I received your message.');
+
+    } catch (error) {
+      console.error('Error:', error);
+      hideTypingIndicator();
+      addMessage('assistant', 'I had trouble processing your request. Please try again.');
+    } finally {
+      setLoading(false);
+      setTimeout(() => {
+        const chatInput = document.getElementById('chatInput');
+        chatInput.focus();
+      }, 100);
+    }
+  }
+
+  async function sendMessage() {
+    const chatInput = document.getElementById('chatInput');
+    const message = chatInput.value.trim();
+    if (!message || isLoading) {
+      return;
+    }
+
+    addMessage('user', message);
+    chatInput.value = '';
+    chatInput.style.height = 'auto';
+
+    await sendToBackend({message: message});
+
+    setTimeout(() => {
+      chatInput.focus();
+    }, 50);
+  }
+
+  function showInitialMessage() {
+    setTimeout(() => {
+      addMessage('assistant',
+          "<p><strong>Hello! I'm Sophie, your corporate travel assistant from Grapevine.</strong></p>" +
+          "<p>I'm here to help you find the right hotel for your business trips, check availability, and make smart suggestions based on your travel needs.</p>" +
+          "<p><strong>🔐 If your company is subscribed to Sophie:</strong><br>" +
+          "&nbsp;&nbsp;• I can look up your upcoming trips<br>" +
+          "&nbsp;&nbsp;• I can personalize your experience using past travel preferences<br>" +
+          "To enable these features, just provide your <strong>last name and work email</strong>.</p>" +
+          "<p><strong>🌐 If you're not part of a subscribed company:</strong><br>" +
+          "&nbsp;&nbsp;• I can still help you find hotels based on your destination, travel dates, and preferences<br>" +
+          "&nbsp;&nbsp;• I'll ask for a few quick details and suggest top-rated options nearby</p>" +
+          "<p>Let me know where you're headed or what you need help with — and we'll get started!</p>"
+      );
+    }, 1000);
+  }
+
+  // Initialize
+  document.addEventListener('DOMContentLoaded', function () {
+    const sendButton = document.getElementById('sendButton');
+    const chatInput = document.getElementById('chatInput');
+
+    // Initialize welcome overlay
+    initializeWelcomeOverlay();
+
+    sendButton.addEventListener('click', sendMessage);
+
+    chatInput.addEventListener('keypress', function (e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    chatInput.addEventListener('input', function () {
+      this.style.height = 'auto';
+      this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+    });
+
+    // Don't show initial message automatically - wait for user interaction
+  });
+</script>
+</body>
+</html>
