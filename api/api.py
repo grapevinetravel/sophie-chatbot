@@ -23,14 +23,14 @@ def chat():
     conv_id = req.conversation_id or str(uuid4())
     reply = run_chat(req.message, conv_id, conversation_store)
     result = jsonify({"reply": reply, "conversation_id": conv_id})
-    print("Chat response:" + result)
+    print("Chat response:" + str(result))
 
     return result
 @app.route("/login", methods=["POST"])
 def login():
   # Parse incoming JSON data
   data = request.get_json()
-  print("Login request:" + data)
+  print("Login request:" + str(data))
   # Check if full_name and work_email are provided
   if not data or "full_name" not in data or "work_email" not in data:
     return jsonify({"error": "Missing full_name or work_email"}), 400

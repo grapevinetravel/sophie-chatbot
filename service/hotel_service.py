@@ -68,30 +68,4 @@ class HotelSearch:
         item["vector_text"] = None
         result.append(match.properties)
 
-    print(result)
     return result
-
-if __name__ == "__main__":
-  # Initialize the HotelSearch class
-  hotel_search = HotelSearch()
-
-  # Define test parameters
-  preference_text = "any"
-  coords = {"latitude": 51.5073, "longitude": -0.127647}
-  radius_km = 100  # Search within 5 kilometers
-  brand = "Marriott"  # Example hotel brand
-  limit = 5  # Limit results to 5 hotels
-
-  # Call the search_hotels function and print the results
-  results = hotel_search.search_hotels(
-      preference_text=preference_text,
-      coords=coords,
-      radius_km=radius_km,
-      # brand=brand,
-      limit=limit
-  )
-
-  # Print the results
-  print("Search Results:")
-  for idx, hotel in enumerate(results, start=1):
-    print(f"{idx}. {hotel}")
