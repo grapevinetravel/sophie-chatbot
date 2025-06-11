@@ -62,6 +62,7 @@ def handle_hotel_recommendations(hotels_data):
 
     # Escape single quotes in hotel name for JavaScript
     hotel_name_escaped = hotel.get('name', '').replace("'", "\\'")
+    hotel_address = hotel.get('address', '') or hotel.get('location', '') or ''
 
     # Get hotel IDs for the buttons
     property_id = hotel.get('property_id', i)
@@ -114,9 +115,10 @@ def handle_hotel_recommendations(hotels_data):
               </div>
           </div>
 
-          <div style="display: flex; gap: 8px;">
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
               <button onclick="event.stopPropagation(); selectHotel({property_id}, '{hotel_name_escaped}')" style="
                   flex: 1;
+                  min-width: 150px;
                   background: linear-gradient(135deg, #4f46e5, #3b82f6);
                   color: white;
                   border: none;
@@ -147,6 +149,23 @@ def handle_hotel_recommendations(hotels_data):
               " onmouseover="this.style.background='#6b7280'; this.style.color='white'"
                  onmouseout="this.style.background='transparent'; this.style.color='#6b7280'">
                   Full Info
+              </button>
+
+              <button onclick="event.stopPropagation(); showHotelLocation('{hotel_name_escaped}', '{hotel_address.replace("'", " ") if hotel_address else hotel_name_escaped}')" style="
+                  background: transparent; 
+                  border: 2px solid #3b82f6; 
+                  color: #3b82f6; 
+                  padding: 12px 16px; 
+                  border-radius: 8px; 
+                  font-weight: 600; 
+                  cursor: pointer; 
+                  transition: all 0.2s ease; 
+                  font-size: 0.95em;
+                  font-family: inherit;
+                  white-space: nowrap;
+              " onmouseover="this.style.background='#3b82f6'; this.style.color='white'"
+                 onmouseout="this.style.background='transparent'; this.style.color='#3b82f6'">
+                  📍 Location
               </button>
           </div>
       </div>

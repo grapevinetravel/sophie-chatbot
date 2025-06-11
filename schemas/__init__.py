@@ -8,7 +8,7 @@ from schemas.mapbox_search import mapbox_search_schema
 from schemas.search_hotels import search_hotels_schema
 from schemas.send_reservation_request import send_reservation_request_schema
 from schemas.display_full_hotel_details import display_full_hotel_details_schema
-
+from schemas.mapbox_get_directions import get_directions_schema, get_location_schema
 all_schemas = [
   resolve_user_and_trips_schema,
   mapbox_search_schema,
@@ -18,7 +18,9 @@ all_schemas = [
   get_full_hotel_details_schema,
   send_reservation_request_schema,
   display_full_hotel_details_schema,
-  display_hotel_images_schema
+  display_hotel_images_schema,
+  get_directions_schema,
+  get_location_schema
 
   # Add the rest here
 ]

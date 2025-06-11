@@ -1,32 +1,15 @@
 import os
-
 import requests
 
 ACCESS_TOKEN = os.getenv("MAPBOX_ACCESS_TOKEN")
 
+
 class MapboxService:
   def __init__(self):
-    """
-        Initializes the MapboxService with an access token and a session token.
-
-        Args:
-            access_token (str): The access token for accessing the Mapbox API.
-            session_token (str): A unique token for the current session.
-        """
     self.base_url = "https://api.mapbox.com/search/searchbox/v1/forward"
     self.access_token = ACCESS_TOKEN
 
   def mapbox_search(self, query: str, country: str = None) -> dict:
-    """
-        Makes a request to the Mapbox Search API to retrieve suggestions based on the query and optional country.
-
-        Args:
-            query (str): The search query.
-            country (str, optional): The country filter (e.g., "GB"). Defaults to None.
-
-        Returns:
-            dict: The API response as a JSON dictionary.
-        """
     # Construct query parameters
     params = {
       "q": query,
@@ -41,7 +24,7 @@ class MapboxService:
 
       # Check if the request was successful
       if response.status_code == 200:
-        return extract_coords_and_name(response.json())  # Return the response JSON as a dictionary
+        return extract_coords_and_name(response.json())
       else:
         print(f"Error: Received status code {response.status_code}")
         print(f"Response: {response.text}")
@@ -50,6 +33,56 @@ class MapboxService:
       # Handle exceptions gracefully
       print(f"An error occurred: {e}")
       return {"error": "Request exception", "details": str(e)}
+
+  def get_location(self, location_input):
+    # If already has coordinates, return as-is
+    if isinstance(location_input, dict) and 'lat' in location_input and 'lng' in location_input:
+      return {
+        'lat': location_input['lat'],
+        'lng': location_input['lng'],
+        'name': location_input.get('name', 'Unknown Location')
+      }
+
+    # Extract search query and country
+    if isinstance(location_input, dict):
+      query = location_input.get('location', '')
+      country = location_input.get('country', None)
+    elif isinstance(location_input, str):
+      query = location_input
+      country = None
+    else:
+      raise ValueError("Invalid location input format")
+
+    if not query:
+      raise ValueError("Location query cannot be empty")
+
+    # Search for location
+    search_result = self.mapbox_search(query, country)
+
+    if 'error' in search_result:
+      raise ValueError(f"Could not find location '{query}': {search_result['error']}")
+
+    # Convert to expected format
+    return {
+      'lat': search_result['coords']['latitude'],
+      'lng': search_result['coords']['longitude'],
+      'name': search_result['name']
+    }
+
+  def get_directions(self, origin, destination, mode="walking"):
+
+    try:
+      # Resolve both locations using get_location
+      resolved_origin = self.get_location(origin)
+      resolved_destination = self.get_location(destination)
+
+      return {
+        'origin': resolved_origin,
+        'destination': resolved_destination,
+        'mode': mode
+      }
+    except Exception as e:
+      raise ValueError(f"Failed to get directions: {str(e)}")
 
 
 def extract_coords_and_name(data):

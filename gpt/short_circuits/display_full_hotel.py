@@ -154,6 +154,30 @@ def handle_display_full_hotel_details(result):
             {f'<img src="{hero_image}" style="position: absolute; top: 0; right: 0; width: 120px; height: 80px; object-fit: cover; border-radius: 8px; opacity: 0.3;" />' if hero_image else ''}
         </div>
 
+        <!-- Prominent Location Button -->
+        <div style="margin-bottom: 20px; text-align: center;">
+            <button onclick="showHotelLocation('{name.replace("'", " ")}', '{full_address}'); return false;" style="
+                background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+                color: white;
+                border: none;
+                padding: 16px 32px;
+                border-radius: 12px;
+                font-weight: 700;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                font-size: 1.1em;
+                font-family: inherit;
+                box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+                display: inline-flex;
+                align-items: center;
+                gap: 10px;
+            " onmouseover="this.style.transform='translateY(-3px) scale(1.02)'; this.style.boxShadow='0 8px 25px rgba(59, 130, 246, 0.4)'"
+               onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 4px 15px rgba(59, 130, 246, 0.3)'">
+                <span style="font-size: 1.2em;">📍</span>
+                View Hotel Location on Map
+            </button>
+        </div>
+
         <!-- Quick Info Cards -->
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; margin-bottom: 16px;">
 

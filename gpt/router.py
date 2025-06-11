@@ -1,6 +1,7 @@
 from service.email_service import send_reservation_request
 from service.expedia_client import ExpediaRapidClient
 from service.user_service import UserService
+from service.mocks.user_service_mock import MockUserService
 from service.mapbox_service import MapboxService
 from service.rate_service import HotelAvailabilityService
 from service.hotel_service import HotelSearch
@@ -9,7 +10,8 @@ import time
 
 hotel_service = HotelSearch()
 mapbox_service = MapboxService()
-user_service = UserService()
+# user_service = UserService()
+user_service = MockUserService()
 hotel_avail_service = HotelAvailabilityService()
 expedia_service = ExpediaRapidClient()
 
@@ -29,6 +31,10 @@ def handle_function_call(name, arguments):
     result = user_service.resolve_user_and_trips(**arguments)
   elif name == "mapbox_search":
     result = mapbox_service.mapbox_search(**arguments)
+  elif name == "get_directions":
+    result = mapbox_service.get_directions(**arguments)
+  elif name == "get_location":
+    result = mapbox_service.get_location(**arguments)
   elif name == "get_hotels_by_corporate_geo":
     result = user_service.get_hotels_by_corporate_geo(**arguments)
   elif name == "search_hotels":

@@ -1,5 +1,7 @@
 from datetime import datetime
 
+import requests
+
 
 class HotelAvailabilityService:
   def __init__(self):
@@ -8,8 +10,8 @@ class HotelAvailabilityService:
 
   def adjust_dates_if_in_past(self, in_date: str, out_date: str) -> tuple:
     # Parse the input dates
-    in_date_obj = datetime.strptime(in_date, "%d-%m-%Y")
-    out_date_obj = datetime.strptime(out_date, "%d-%m-%Y")
+    in_date_obj = datetime.strptime(in_date, "%Y-%m-%d")
+    out_date_obj = datetime.strptime(out_date, "%Y-%m-%d")
 
     # Get current date
     now = datetime.now()
@@ -21,7 +23,7 @@ class HotelAvailabilityService:
       out_date_obj = out_date_obj.replace(year=2025)
 
     # Convert back to string in the required format
-    return in_date_obj.strftime("%d-%m-%Y"), out_date_obj.strftime("%d-%m-%Y")
+    return in_date_obj.strftime("%Y-%m-%d"), out_date_obj.strftime("%Y-%m-%d")
 
   def check_availability(self, in_date: str, out_date: str, property_id: str):
     # Adjust the dates if necessary

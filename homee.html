@@ -46,6 +46,234 @@
       }
     }
 
+    /* Welcome Overlay Styles */
+    .welcome-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    .welcome-modal {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+      animation: modalSlideIn 0.6s ease-out;
+      text-align: center;
+    }
+
+    @keyframes modalSlideIn {
+      from {
+        transform: translateY(30px) scale(0.95);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+    }
+
+    .welcome-modal .logo {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #4f46e5, #3b82f6);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      color: white;
+      font-size: 32px;
+      font-weight: bold;
+      box-shadow: 0 8px 25px rgba(79, 70, 229, 0.3);
+    }
+
+    .welcome-modal h2 {
+      color: #4f46e5;
+      font-size: 24px;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .welcome-modal .subtitle {
+      color: #64748b;
+      font-size: 14px;
+      margin-bottom: 25px;
+      line-height: 1.5;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      color: #374151;
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-size: 13px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 2px solid #e5e7eb;
+      border-radius: 10px;
+      font-size: 14px;
+      font-family: inherit;
+      transition: all 0.3s ease;
+      background: #f9fafb;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #4f46e5;
+      background: white;
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    }
+
+    .quick-start-section {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .quick-start-title {
+      color: #374151;
+      font-weight: 600;
+      margin-bottom: 12px;
+      font-size: 15px;
+    }
+
+    .preset-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .preset-button {
+      padding: 16px 18px;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      background: #f9fafb;
+      color: #374151;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .preset-button:hover {
+      border-color: #4f46e5;
+      background: #f0f4ff;
+      color: #4f46e5;
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px rgba(79, 70, 229, 0.15);
+    }
+
+    .preset-button.selected {
+      border-color: #4f46e5;
+      background: linear-gradient(135deg, #4f46e5, #3b82f6);
+      color: white;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+    }
+
+    .persona-icon {
+      font-size: 24px;
+      margin-bottom: 2px;
+    }
+
+    .persona-title {
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+
+    .persona-name {
+      font-size: 12px;
+      font-weight: 500;
+      opacity: 0.7;
+      margin-bottom: 4px;
+    }
+
+    .persona-subtitle {
+      font-size: 11px;
+      opacity: 0.7;
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    .preset-button.selected .persona-name,
+    .preset-button.selected .persona-subtitle {
+      opacity: 0.9;
+    }
+
+    .continue-button {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #4f46e5, #3b82f6);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 8px;
+    }
+
+    .continue-button:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(79, 70, 229, 0.3);
+    }
+
+    .continue-button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .skip-link {
+      color: #6b7280;
+      font-size: 14px;
+      margin-top: 15px;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .skip-link:hover {
+      color: #4f46e5;
+    }
+
     .chat-header {
       background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
       color: white;
@@ -398,15 +626,6 @@
       animation: fadeIn 0.3s ease-out;
     }
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
-
     .image-modal img {
       max-width: 90%;
       max-height: 90%;
@@ -458,6 +677,46 @@
         border-radius: 15px;
       }
 
+      .welcome-modal {
+        padding: 25px 20px;
+        max-height: 85vh;
+      }
+
+      .welcome-modal h2 {
+        font-size: 20px;
+      }
+
+      .welcome-modal .subtitle {
+        font-size: 13px;
+        margin-bottom: 20px;
+      }
+
+      .preset-buttons {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .preset-button {
+        padding: 14px 16px;
+        font-size: 12px;
+      }
+
+      .persona-icon {
+        font-size: 20px;
+      }
+
+      .persona-title {
+        font-size: 13px;
+      }
+
+      .persona-name {
+        font-size: 11px;
+      }
+
+      .persona-subtitle {
+        font-size: 10px;
+      }
+
       .message-content {
         max-width: 85%;
       }
@@ -494,6 +753,61 @@
   <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' />
 </head>
 <body>
+<!-- Welcome Overlay -->
+<div class="welcome-overlay" id="welcomeOverlay">
+  <div class="welcome-modal">
+    <div class="logo">S</div>
+    <h2>Welcome to Sophie</h2>
+    <p class="subtitle">Your personal corporate travel assistant. To get started, please provide your details below.</p>
+
+    <form id="welcomeForm">
+      <div class="form-group">
+        <label for="userName">Full Name</label>
+        <input type="text" id="userName" name="userName" placeholder="Enter your full name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="userEmail">Work Email</label>
+        <input type="email" id="userEmail" name="userEmail" placeholder="Enter your work email" required>
+      </div>
+    </form>
+
+    <div class="quick-start-section">
+      <div class="quick-start-title">Select Your Corporate Traveler Profile</div>
+      <div class="preset-buttons">
+        <div class="preset-button" data-persona="sales_executive">
+          <div class="persona-icon">💼</div>
+          <div class="persona-title">Sales Executive</div>
+          <div class="persona-name">James Mitchell</div>
+          <div class="persona-subtitle">Premium hotels, business districts</div>
+        </div>
+        <div class="preset-button" data-persona="startup_founder">
+          <div class="persona-icon">🚀</div>
+          <div class="persona-title">Startup Founder</div>
+          <div class="persona-name">Sarah Chen</div>
+          <div class="persona-subtitle">Budget-conscious, flexible</div>
+        </div>
+        <div class="preset-button" data-persona="consultant">
+          <div class="persona-icon">📊</div>
+          <div class="persona-title">Consultant</div>
+          <div class="persona-name">David Rodriguez</div>
+          <div class="persona-subtitle">Extended stays, business facilities</div>
+        </div>
+        <div class="preset-button" data-persona="tech_manager">
+          <div class="persona-icon">💻</div>
+          <div class="persona-title">Tech Manager</div>
+          <div class="persona-name">Emily Park</div>
+          <div class="persona-subtitle">Modern amenities, tech hubs</div>
+        </div>
+      </div>
+
+      <button type="button" class="continue-button" id="continueButton" disabled>
+        Continue to Chat
+      </button>
+    </div>
+  </div>
+</div>
+
 <div class="chat-container">
   <div class="chat-header">
     <div class="logo">S</div>
@@ -529,11 +843,160 @@
   // Global variables
   let conversationId = null;
   let isLoading = false;
+  let userName = '';
+  let userEmail = '';
+  let selectedPersona = '';
+  let userProfile = null;
+
+  // Predefined corporate traveler personas
+  const corporatePersonas = {
+    sales_executive: {
+      name: "James Mitchell",
+      email: "james.mitchell@salesforce-corp.com",
+      description: "I'm James Mitchell, Senior Sales Executive at Salesforce Corp. My email is james.mitchell@salesforce-corp.com."
+    },
+    startup_founder: {
+      name: "Sarah Chen",
+      email: "sarah.chen@nextstep-ventures.com",
+      description: "I'm Sarah Chen, Founder & CEO of NextStep Ventures. My email is sarah.chen@nextstep-ventures.com."
+    },
+    consultant: {
+      name: "David Rodriguez",
+      email: "david.rodriguez@mckinsey-consulting.com",
+      description: "I'm David Rodriguez, Senior Manager at McKinsey Consulting. My email is david.rodriguez@mckinsey-consulting.com."
+    },
+    tech_manager: {
+      name: "Emily Park",
+      email: "emily.park@techcorp-innovations.com",
+      description: "I'm Emily Park, Technical Product Manager at TechCorp Innovations. My email is emily.park@techcorp-innovations.com."
+    }
+  };
 
   // Set Mapbox token
   mapboxgl.accessToken = 'pk.eyJ1IjoiYWRtaW4tZ3JhcGV2aW5lLXRyYXZlbCIsImEiOiJja2V2a3lkZTczdTYyMnlwaXQzcXNxbHZxIn0.lRbK-DDBPafm6zYulqcTMw';
 
-  // Global functions for buttons
+  // Welcome Overlay Functions
+  function initializeWelcomeOverlay() {
+    const userNameInput = document.getElementById('userName');
+    const userEmailInput = document.getElementById('userEmail');
+    const continueButton = document.getElementById('continueButton');
+    const presetButtons = document.querySelectorAll('.preset-button');
+
+    // Handle form validation
+    function validateForm() {
+      const name = userNameInput.value.trim();
+      const email = userEmailInput.value.trim();
+      const isValid = name.length > 0 && email.length > 0 && email.includes('@') && selectedPersona;
+      continueButton.disabled = !isValid;
+      return isValid;
+    }
+
+    userNameInput.addEventListener('input', validateForm);
+    userEmailInput.addEventListener('input', validateForm);
+
+    // Handle persona selection
+    presetButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Remove selected class from all buttons
+        presetButtons.forEach(btn => btn.classList.remove('selected'));
+        // Add selected class to clicked button
+        button.classList.add('selected');
+        selectedPersona = button.dataset.persona;
+
+        // Validate form after persona selection
+        validateForm();
+      });
+    });
+
+    // Handle continue button
+    continueButton.addEventListener('click', async () => {
+      if (validateForm()) {
+        userName = userNameInput.value.trim();
+        userEmail = userEmailInput.value.trim();
+        userProfile = corporatePersonas[selectedPersona];
+
+        // Send login request to backend
+        try {
+          await fetch('http://localhost:8080/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              full_name: userName,
+              work_email: userEmail
+            })
+          });
+        } catch (error) {
+          console.log('Login request failed, but continuing with chat:', error);
+        }
+
+        // Hide overlay with animation
+        const overlay = document.getElementById('welcomeOverlay');
+        overlay.style.animation = 'fadeOut 0.3s ease-out forwards';
+
+        setTimeout(() => {
+          overlay.style.display = 'none';
+          startChatSession();
+        }, 300);
+      }
+    });
+
+    // Handle Enter key in form
+    userNameInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        userEmailInput.focus();
+      }
+    });
+
+    userEmailInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter' && validateForm()) {
+        e.preventDefault();
+        continueButton.click();
+      }
+    });
+  }
+
+  // Add fadeOut animation to CSS
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+
+  function startChatSession() {
+    // Focus on chat input
+    setTimeout(() => {
+      const chatInput = document.getElementById('chatInput');
+      chatInput.focus();
+    }, 100);
+
+    // Always show initial message first
+    showInitialMessage();
+
+    // Send the persona description as the initial message after a delay
+    if (userProfile) {
+      setTimeout(() => {
+        addMessage('user', `Hello, ${userProfile.description}`);
+
+        sendToBackend({
+          message: userProfile.description,
+          persona: selectedPersona,
+          is_initial_message: true
+        });
+      }, 1500);
+    }
+  }
+
+  // Global functions for buttons (existing functions remain the same)
   function selectTrip(tripNumber) {
     addMessage('user', `I'd like hotel suggestions for Trip ${tripNumber}`);
     sendToBackend({
@@ -671,7 +1134,6 @@
   }
 
   // ===== MAPBOX FUNCTIONS =====
-
 
   // Function to initialize a location map (single pin)
   async function initializeLocationMap(mapId, locationData) {
@@ -1061,6 +1523,14 @@
         requestBody.conversation_id = conversationId;
       }
 
+      // Include persona information if available
+      if (selectedPersona) {
+        requestBody.persona = selectedPersona;
+      }
+      if (userProfile) {
+        requestBody.user_profile = userProfile;
+      }
+
       const response = await fetch('http://localhost:8080/chat', {
         method: 'POST',
         headers: {
@@ -1135,6 +1605,9 @@
     const sendButton = document.getElementById('sendButton');
     const chatInput = document.getElementById('chatInput');
 
+    // Initialize welcome overlay
+    initializeWelcomeOverlay();
+
     sendButton.addEventListener('click', sendMessage);
 
     chatInput.addEventListener('keypress', function (e) {
@@ -1149,7 +1622,7 @@
       this.style.height = Math.min(this.scrollHeight, 120) + 'px';
     });
 
-    showInitialMessage();
+    // Don't show initial message automatically - wait for user interaction
   });
 </script>
 </body>

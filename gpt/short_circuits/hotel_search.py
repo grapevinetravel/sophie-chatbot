@@ -91,6 +91,7 @@ def search_hotels_result(hotels_data):
 
     # Escape quotes for JavaScript
     name_escaped = name.replace("'", "\\'")
+    address_escaped = address.replace("'", "\\'") if address else name_escaped
 
     hotel_cards += f'''
         <div onclick="selectSearchHotel('{expedia_id}', '{name_escaped}', '{hotel_id}')" style="
@@ -135,9 +136,10 @@ def search_hotels_result(hotels_data):
                 </div>
             </div>
 
-            <div style="display: flex; gap: 8px;">
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
                 <button onclick="event.stopPropagation(); selectSearchHotel('{expedia_id}', '{name_escaped}', '{hotel_id}')" style="
                     flex: 1;
+                    min-width: 140px;
                     background: linear-gradient(135deg, #4f46e5, #3b82f6); 
                     color: white; 
                     border: none; 
@@ -168,6 +170,23 @@ def search_hotels_result(hotels_data):
                 " onmouseover="this.style.background='#6b7280'; this.style.color='white'"
                    onmouseout="this.style.background='transparent'; this.style.color='#6b7280'">
                     Full Info
+                </button>
+
+                <button onclick="event.stopPropagation(); showHotelLocation('{name_escaped}', '{address_escaped}')" style="
+                    background: transparent; 
+                    border: 2px solid #3b82f6; 
+                    color: #3b82f6; 
+                    padding: 12px 16px; 
+                    border-radius: 8px; 
+                    font-weight: 600; 
+                    cursor: pointer; 
+                    transition: all 0.2s ease; 
+                    font-size: 0.95em;
+                    font-family: inherit;
+                    white-space: nowrap;
+                " onmouseover="this.style.background='#3b82f6'; this.style.color='white'"
+                   onmouseout="this.style.background='transparent'; this.style.color='#3b82f6'">
+                    📍 Location
                 </button>
             </div>
         </div>

@@ -98,7 +98,7 @@ def handle_hotel_availability(availability_data):
               </div>
               <div style="text-align: right;">
                   <div style="font-weight: 600; color: #4f46e5; font-size: 1.3em;">{currency_symbol}{total_price:.0f}</div>
-                  <div style="font-size: 0.8em; color: #6b7280;">per night</div>
+                  <div style="font-size: 0.8em; color: #6b7280;">total stay</div>
               </div>
           </div>
           <button onclick="selectRoom('{rate_id}', '{html.escape(room_desc)}', {total_price})" 
@@ -116,7 +116,7 @@ def handle_hotel_availability(availability_data):
   <div style="background: #f0fdf4; border: 1px solid #22c55e; border-radius: 8px; padding: 16px; margin: 12px 0;">
       <h3 style="color: #166534; margin: 0 0 8px 0;">✅ Available Rooms</h3>
       <p style="color: #166534; margin: 0;">
-          {len(rates)} rooms available • {currency_symbol}{min_price:.0f} - {currency_symbol}{max_price:.0f} per night
+          {len(rates)} rooms available • {currency_symbol}{min_price:.0f} - {currency_symbol}{max_price:.0f} total stay
       </p>
   </div>
   {room_cards}
