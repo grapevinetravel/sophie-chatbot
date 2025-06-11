@@ -14,7 +14,7 @@ class ChatRequest(BaseModel):
 @app.route("/chat", methods=["POST"])
 def chat():
     data = request.get_json()
-    print("Chat request:" + data)
+    print("Chat request:" + str(data))
 
     if not data or "message" not in data:
         return jsonify({"error": "Missing message"}), 400
