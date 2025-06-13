@@ -19,7 +19,7 @@ expedia_service = ExpediaRapidClient()
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 
-def handle_function_call(name, arguments):
+def handle_function_call(name, arguments, initial_mock):
   """
     Handles function calls by name and provides logging of start, end, and elapsed time.
     """
@@ -29,7 +29,7 @@ def handle_function_call(name, arguments):
   result = None
   try:
     if name == "resolve_user_and_trips":
-      result = user_service.resolve_user_and_trips(**arguments)
+      result = user_service.resolve_user_and_trips(initial_mock, **arguments)
     elif name == "mapbox_search":
       result = mapbox_service.mapbox_search(**arguments)
     elif name == "get_directions":

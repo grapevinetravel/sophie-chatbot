@@ -272,9 +272,15 @@ class MockUserService:
       ]
     }
 
-  def resolve_user_and_trips(self, email: str, last_name: str):
+  def resolve_user_and_trips(self, initial_mock: bool, email: str, last_name: str):
     """Mock version of resolve_user_and_trips"""
     user_key = (email.lower(), last_name.lower())
+
+    # If initial_mock is True, return any of the entries in mock_users
+    if initial_mock:
+      return next(iter(self.mock_users.values()), {})  # Get any entry or return an empty dictionary if mock_users is empty
+
+    # Otherwise, resolve user normally
     if user_key in self.mock_users:
       return self.mock_users[user_key]
     else:

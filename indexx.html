@@ -75,8 +75,8 @@
     .welcome-modal {
       background: white;
       border-radius: 20px;
-      padding: 25px;
-      max-width: 500px;
+      padding: 30px;
+      max-width: 450px;
       width: 100%;
       max-height: calc(100vh - 40px);
       overflow-y: auto;
@@ -104,7 +104,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 18px;
+      margin: 0 auto 20px;
       color: white;
       font-size: 28px;
       font-weight: bold;
@@ -113,20 +113,20 @@
 
     .welcome-modal h2 {
       color: #4f46e5;
-      font-size: 22px;
-      margin-bottom: 6px;
+      font-size: 24px;
+      margin-bottom: 8px;
       font-weight: 600;
     }
 
     .welcome-modal .subtitle {
       color: #64748b;
-      font-size: 13px;
-      margin-bottom: 20px;
-      line-height: 1.4;
+      font-size: 14px;
+      margin-bottom: 25px;
+      line-height: 1.5;
     }
 
     .form-group {
-      margin-bottom: 14px;
+      margin-bottom: 16px;
       text-align: left;
     }
 
@@ -134,13 +134,13 @@
       display: block;
       color: #374151;
       font-weight: 600;
-      margin-bottom: 5px;
-      font-size: 12px;
+      margin-bottom: 6px;
+      font-size: 13px;
     }
 
     .form-group input {
       width: 100%;
-      padding: 10px 12px;
+      padding: 12px 14px;
       border: 2px solid #e5e7eb;
       border-radius: 10px;
       font-size: 14px;
@@ -156,100 +156,60 @@
       box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
     }
 
-    .quick-start-section {
-      margin-top: 18px;
-      text-align: center;
+    .checkbox-group {
+      margin: 20px 0;
+      text-align: left;
     }
 
-    .quick-start-title {
-      color: #374151;
-      font-weight: 600;
-      margin-bottom: 10px;
-      font-size: 14px;
-    }
-
-    .preset-buttons {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-
-    .preset-button {
-      padding: 12px 14px;
-      border: 2px solid #e5e7eb;
-      border-radius: 12px;
-      background: #f9fafb;
-      color: #374151;
-      font-size: 12px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-align: center;
+    .checkbox-container {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
+      align-items: flex-start;
+      gap: 10px;
+      cursor: pointer;
+      padding: 12px;
+      border-radius: 8px;
+      transition: background-color 0.2s ease;
     }
 
-    .preset-button:hover {
-      border-color: #4f46e5;
-      background: #f0f4ff;
-      color: #4f46e5;
-      transform: translateY(-1px);
-      box-shadow: 0 3px 8px rgba(79, 70, 229, 0.15);
+    .checkbox-container:hover {
+      background-color: #f8fafc;
     }
 
-    .preset-button.selected {
-      border-color: #4f46e5;
-      background: linear-gradient(135deg, #4f46e5, #3b82f6);
-      color: white;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+    .checkbox-input {
+      width: 18px;
+      height: 18px;
+      margin: 0;
+      cursor: pointer;
+      accent-color: #4f46e5;
     }
 
-    .persona-icon {
-      font-size: 20px;
-      margin-bottom: 2px;
-    }
-
-    .persona-title {
-      font-weight: 600;
+    .checkbox-label {
+      color: #374151;
       font-size: 13px;
-      margin-bottom: 1px;
+      line-height: 1.4;
+      cursor: pointer;
+      flex: 1;
     }
 
-    .persona-name {
-      font-size: 11px;
-      font-weight: 500;
-      opacity: 0.7;
-      margin-bottom: 3px;
-    }
-
-    .persona-subtitle {
-      font-size: 10px;
-      opacity: 0.7;
-      line-height: 1.2;
-      text-align: center;
-    }
-
-    .preset-button.selected .persona-name,
-    .preset-button.selected .persona-subtitle {
-      opacity: 0.9;
+    .checkbox-description {
+      color: #6b7280;
+      font-size: 12px;
+      margin-top: 4px;
+      line-height: 1.3;
     }
 
     .continue-button {
       width: 100%;
-      padding: 12px;
+      padding: 14px;
       background: linear-gradient(135deg, #4f46e5, #3b82f6);
       color: white;
       border: none;
       border-radius: 10px;
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
-      margin-top: 6px;
+      margin-top: 10px;
     }
 
     .continue-button:hover:not(:disabled) {
@@ -261,18 +221,6 @@
       opacity: 0.5;
       cursor: not-allowed;
       transform: none;
-    }
-
-    .skip-link {
-      color: #6b7280;
-      font-size: 13px;
-      margin-top: 12px;
-      cursor: pointer;
-      text-decoration: underline;
-    }
-
-    .skip-link:hover {
-      color: #4f46e5;
     }
 
     .chat-header {
@@ -670,6 +618,16 @@
       background: rgba(0, 0, 0, 0.8);
     }
 
+    /* Add fadeOut animation to CSS */
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+
     /* Responsive adjustments */
     @media (max-width: 768px) {
       .chat-container {
@@ -683,7 +641,7 @@
       }
 
       .welcome-modal {
-        padding: 20px 18px;
+        padding: 25px 20px;
         max-height: calc(100vh - 30px);
         max-width: 100%;
       }
@@ -696,68 +654,43 @@
       }
 
       .welcome-modal h2 {
-        font-size: 18px;
-        margin-bottom: 5px;
+        font-size: 20px;
+        margin-bottom: 6px;
       }
 
       .welcome-modal .subtitle {
-        font-size: 12px;
-        margin-bottom: 16px;
+        font-size: 13px;
+        margin-bottom: 20px;
       }
 
       .form-group {
-        margin-bottom: 12px;
+        margin-bottom: 14px;
       }
 
       .form-group input {
-        padding: 9px 11px;
-      }
-
-      .quick-start-section {
-        margin-top: 15px;
-      }
-
-      .quick-start-title {
-        font-size: 13px;
-        margin-bottom: 8px;
-      }
-
-      .preset-buttons {
-        grid-template-columns: 1fr;
-        gap: 8px;
-        margin-bottom: 15px;
-      }
-
-      .preset-button {
         padding: 10px 12px;
+      }
+
+      .checkbox-group {
+        margin: 18px 0;
+      }
+
+      .checkbox-container {
+        padding: 10px;
+      }
+
+      .checkbox-label {
+        font-size: 12px;
+      }
+
+      .checkbox-description {
         font-size: 11px;
       }
 
-      .persona-icon {
-        font-size: 18px;
-      }
-
-      .persona-title {
-        font-size: 12px;
-      }
-
-      .persona-name {
-        font-size: 10px;
-      }
-
-      .persona-subtitle {
-        font-size: 9px;
-      }
-
       .continue-button {
-        padding: 10px;
-        font-size: 13px;
-        margin-top: 5px;
-      }
-
-      .skip-link {
-        font-size: 12px;
-        margin-top: 10px;
+        padding: 12px;
+        font-size: 14px;
+        margin-top: 8px;
       }
 
       .message-content {
@@ -801,7 +734,7 @@
   <div class="welcome-modal">
     <div class="logo">S</div>
     <h2>Welcome to Sophie</h2>
-    <p class="subtitle">Your personal corporate travel assistant. To get started, please provide your details below.</p>
+    <p class="subtitle">Your personal corporate travel assistant. Please provide your details to get started.</p>
 
     <form id="welcomeForm">
       <div class="form-group">
@@ -813,41 +746,28 @@
         <label for="userEmail">Work Email</label>
         <input type="email" id="userEmail" name="userEmail" placeholder="Enter your work email" required>
       </div>
-    </form>
 
-    <div class="quick-start-section">
-      <div class="quick-start-title">Select Your Corporate Traveler Profile</div>
-      <div class="preset-buttons">
-        <div class="preset-button" data-persona="sales_executive">
-          <div class="persona-icon">💼</div>
-          <div class="persona-title">Sales Executive</div>
-          <div class="persona-name">James Mitchell</div>
-          <div class="persona-subtitle">Premium hotels, business districts</div>
-        </div>
-        <div class="preset-button" data-persona="startup_founder">
-          <div class="persona-icon">🚀</div>
-          <div class="persona-title">Startup Founder</div>
-          <div class="persona-name">Sarah Chen</div>
-          <div class="persona-subtitle">Budget-conscious, flexible</div>
-        </div>
-        <div class="preset-button" data-persona="consultant">
-          <div class="persona-icon">📊</div>
-          <div class="persona-title">Consultant</div>
-          <div class="persona-name">David Rodriguez</div>
-          <div class="persona-subtitle">Extended stays, business facilities</div>
-        </div>
-        <div class="preset-button" data-persona="tech_manager">
-          <div class="persona-icon">💻</div>
-          <div class="persona-title">Tech Manager</div>
-          <div class="persona-name">Emily Park</div>
-          <div class="persona-subtitle">Modern amenities, tech hubs</div>
+      <div class="form-group">
+        <label for="userCompany">Company</label>
+        <input type="text" id="userCompany" name="userCompany" placeholder="Enter your company name" required>
+      </div>
+
+      <div class="checkbox-group">
+        <div class="checkbox-container">
+          <input type="checkbox" id="mockTravelHistory" class="checkbox-input">
+          <label for="mockTravelHistory" class="checkbox-label">
+            Use mock travel history for demonstration
+            <div class="checkbox-description">
+              This will populate your profile with example travel data to showcase Sophie's features and personalization capabilities.
+            </div>
+          </label>
         </div>
       </div>
 
       <button type="button" class="continue-button" id="continueButton" disabled>
         Continue to Chat
       </button>
-    </div>
+    </form>
   </div>
 </div>
 
@@ -888,32 +808,8 @@
   let isLoading = false;
   let userName = '';
   let userEmail = '';
-  let selectedPersona = '';
-  let userProfile = null;
-
-  // Predefined corporate traveler personas
-  const corporatePersonas = {
-    sales_executive: {
-      name: "James Mitchell",
-      email: "james.mitchell@salesforce-corp.com",
-      description: "I'm James Mitchell, Senior Sales Executive at Salesforce Corp. My email is james.mitchell@salesforce-corp.com."
-    },
-    startup_founder: {
-      name: "Sarah Chen",
-      email: "sarah.chen@nextstep-ventures.com",
-      description: "I'm Sarah Chen, Founder & CEO of NextStep Ventures. My email is sarah.chen@nextstep-ventures.com."
-    },
-    consultant: {
-      name: "David Rodriguez",
-      email: "david.rodriguez@mckinsey-consulting.com",
-      description: "I'm David Rodriguez, Senior Manager at McKinsey Consulting. My email is david.rodriguez@mckinsey-consulting.com."
-    },
-    tech_manager: {
-      name: "Emily Park",
-      email: "emily.park@techcorp-innovations.com",
-      description: "I'm Emily Park, Technical Product Manager at TechCorp Innovations. My email is emily.park@techcorp-innovations.com."
-    }
-  };
+  let userCompany = '';
+  let useMockHistory = false;
 
   // Set Mapbox token
   mapboxgl.accessToken = 'pk.eyJ1IjoiYWRtaW4tZ3JhcGV2aW5lLXRyYXZlbCIsImEiOiJja2V2a3lkZTczdTYyMnlwaXQzcXNxbHZxIn0.lRbK-DDBPafm6zYulqcTMw';
@@ -922,41 +818,31 @@
   function initializeWelcomeOverlay() {
     const userNameInput = document.getElementById('userName');
     const userEmailInput = document.getElementById('userEmail');
+    const userCompanyInput = document.getElementById('userCompany');
+    const mockHistoryCheckbox = document.getElementById('mockTravelHistory');
     const continueButton = document.getElementById('continueButton');
-    const presetButtons = document.querySelectorAll('.preset-button');
 
     // Handle form validation
     function validateForm() {
       const name = userNameInput.value.trim();
       const email = userEmailInput.value.trim();
-      const isValid = name.length > 0 && email.length > 0 && email.includes('@') && selectedPersona;
+      const company = userCompanyInput.value.trim();
+      const isValid = name.length > 0 && email.length > 0 && email.includes('@') && company.length > 0;
       continueButton.disabled = !isValid;
       return isValid;
     }
 
     userNameInput.addEventListener('input', validateForm);
     userEmailInput.addEventListener('input', validateForm);
-
-    // Handle persona selection
-    presetButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        // Remove selected class from all buttons
-        presetButtons.forEach(btn => btn.classList.remove('selected'));
-        // Add selected class to clicked button
-        button.classList.add('selected');
-        selectedPersona = button.dataset.persona;
-
-        // Validate form after persona selection
-        validateForm();
-      });
-    });
+    userCompanyInput.addEventListener('input', validateForm);
 
     // Handle continue button
     continueButton.addEventListener('click', async () => {
       if (validateForm()) {
         userName = userNameInput.value.trim();
         userEmail = userEmailInput.value.trim();
-        userProfile = corporatePersonas[selectedPersona];
+        userCompany = userCompanyInput.value.trim();
+        useMockHistory = mockHistoryCheckbox.checked;
 
         // Send login request to backend
         try {
@@ -967,7 +853,9 @@
             },
             body: JSON.stringify({
               full_name: userName,
-              work_email: userEmail
+              work_email: userEmail,
+              company: userCompany,
+              use_mock_history: useMockHistory
             })
           });
         } catch (error) {
@@ -985,7 +873,7 @@
       }
     });
 
-    // Handle Enter key in form
+    // Handle Enter key in form inputs
     userNameInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
         e.preventDefault();
@@ -994,26 +882,19 @@
     });
 
     userEmailInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        userCompanyInput.focus();
+      }
+    });
+
+    userCompanyInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter' && validateForm()) {
         e.preventDefault();
         continueButton.click();
       }
     });
   }
-
-  // Add fadeOut animation to CSS
-  const style = document.createElement('style');
-  style.textContent = `
-    @keyframes fadeOut {
-      from {
-        opacity: 1;
-      }
-      to {
-        opacity: 0;
-      }
-    }
-  `;
-  document.head.appendChild(style);
 
   function startChatSession() {
     // Focus on chat input
@@ -1022,26 +903,29 @@
       chatInput.focus();
     }, 100);
 
-    // Always show initial message first
-    showInitialMessage();
-
-    // Send the persona description as the initial message after a delay
-    if (userProfile) {
-      setTimeout(() => {
-        addMessage('user', `Hello, ${userProfile.description}`);
-
-        sendToBackend({
-          message: userProfile.description,
-          persona: selectedPersona,
-          is_initial_message: true
-        });
-      }, 1500);
-    }
+    // Send the user information as the initial message behind the scenes (no UI display)
+    setTimeout(() => {
+      const initialMessage = `Hello, I'm ${userName} from ${userCompany}. My email is ${userEmail}.${useMockHistory ? ' I would like to use mock travel history for demonstration purposes.' : ''}`;
+      
+      // Send to backend without showing in UI
+      sendToBackendSilent({
+        message: initialMessage,
+        user_info: {
+          name: userName,
+          email: userEmail,
+          company: userCompany,
+          use_mock_history: useMockHistory
+        },
+        is_initial_message: true
+      });
+    }, 500);
   }
 
-  // Global functions for buttons (existing functions remain the same)
+  // Global functions for buttons
   function selectTrip(tripNumber) {
-    addMessage('user', `I'd like hotel suggestions for Trip ${tripNumber}`);
+    // Show loading message from Sophie instead of user message
+    addLoadingMessage('I\'m checking hotel options for your trip. Give me a moment...');
+    
     sendToBackend({
       message: `Selected trip ${tripNumber} for hotel recommendations`,
       trip_selection: tripNumber
@@ -1049,7 +933,7 @@
   }
 
   function selectHotel(propertyId, hotelName) {
-    addMessage('user', `I'd like to book ${hotelName}`);
+    addLoadingMessage(`Let me get the booking details for ${hotelName}...`);
     sendToBackend({
       message: `Selected hotel: ${hotelName}`,
       hotel_selection: {
@@ -1060,7 +944,7 @@
   }
 
   function selectRoom(rateId, roomDescription, totalPrice) {
-    addMessage('user', `I'd like to book the ${roomDescription} for £${totalPrice}`);
+    addLoadingMessage(`I'm processing your room selection: ${roomDescription} for £${totalPrice}...`);
     sendToBackend({
       message: `Selected room: ${roomDescription} for £${totalPrice}`,
       room_selection: {
@@ -1072,7 +956,7 @@
   }
 
   function checkAvailability(propertyId, name) {
-    addMessage('user', `Check availability and rates for ${name}`);
+    addLoadingMessage(`Checking availability and rates for ${name}. This may take a moment...`);
     sendToBackend({
       message: `Check availability and rates for ${name} (Property ID: ${propertyId})`,
       action: 'check_availability',
@@ -1084,7 +968,7 @@
   }
 
   function showHotelLocation(hotelName, hotelAddress) {
-    addMessage('user', `Show me the location of ${hotelName}`);
+    addLoadingMessage(`Let me show you the location of ${hotelName}...`);
     sendToBackend({
       message: `Show me the location of ${hotelName}`,
       action: 'show_hotel_location',
@@ -1096,7 +980,7 @@
   }
 
   function viewHotelImages(propertyId, name) {
-    addMessage('user', `Show me images for ${name}`);
+    addLoadingMessage(`Loading images for ${name}...`);
     sendToBackend({
       message: `Show me images for ${name} (Property ID: ${propertyId})`,
       action: 'view_hotel_images',
@@ -1108,7 +992,7 @@
   }
 
   function showHotelFullInfo(expediaId, name, propertyId) {
-    addMessage('user', `I'd like to see full info for the hotel ${name}`);
+    addLoadingMessage(`Getting detailed information for ${name}...`);
     sendToBackend({
       message: `I'd like to see full info for the property_id ${propertyId}, name ${name}`,
       hotel_info: {
@@ -1120,7 +1004,7 @@
   }
 
   function selectSearchHotel(expediaId, hotelName, hotelId) {
-    addMessage('user', `I'd like to check availability for ${hotelName}`);
+    addLoadingMessage(`Checking availability for ${hotelName}...`);
     sendToBackend({
       message: `Check availability for ${hotelName}`,
       search_hotel_selection: {
@@ -1132,7 +1016,7 @@
   }
 
   function requestMoreHotels() {
-    addMessage('user', 'Show me more hotel options');
+    addLoadingMessage('Let me find more hotel options for you...');
     sendToBackend({
       message: 'Show me more hotel options',
       action: 'more_hotels'
@@ -1140,7 +1024,7 @@
   }
 
   function refineCentralitySearch() {
-    addMessage('user', 'Show me only city center hotels');
+    addLoadingMessage('Filtering to show only city center hotels...');
     sendToBackend({
       message: 'Refine search: centrality',
       search_refinement: {
@@ -1150,7 +1034,7 @@
   }
 
   function refineSearchByPrice() {
-    addMessage('user', 'I want to filter hotels by price range');
+    addLoadingMessage('Let me help you filter hotels by price range...');
     sendToBackend({
       message: 'Refine search: price_filter',
       search_refinement: {
@@ -1161,13 +1045,13 @@
 
   function filterByPrice(priceRange) {
     const rangeMessages = {
-      'budget': 'Show me hotels under £100 per night',
-      'midrange': 'Show me hotels between £100-£150 per night',
-      'premium': 'Show me hotels between £150-£200 per night',
-      'luxury': 'Show me luxury hotels over £200 per night'
+      'budget': 'Searching for hotels under £100 per night...',
+      'midrange': 'Finding hotels between £100-£150 per night...',
+      'premium': 'Looking for hotels between £150-£200 per night...',
+      'luxury': 'Searching for luxury hotels over £200 per night...'
     };
 
-    addMessage('user', rangeMessages[priceRange] || 'Filter hotels by price');
+    addLoadingMessage(rangeMessages[priceRange] || 'Filtering hotels by price...');
     sendToBackend({
       message: `Filter by price: ${priceRange}`,
       price_filter: {
@@ -1380,7 +1264,7 @@
   }
 
   function showMoreImages(category, propertyId) {
-    addMessage('user', `Show me more ${category} images`);
+    addLoadingMessage(`Loading more ${category} images...`);
     sendToBackend({
       message: `Show more ${category} images`,
       view_more_images: {
@@ -1391,7 +1275,7 @@
   }
 
   function goBackToHotelDetails(propertyId, hotelName) {
-    addMessage('user', `Show hotel details for ${hotelName}`);
+    addLoadingMessage(`Getting hotel details for ${hotelName}...`);
     sendToBackend({
       message: `Show hotel details`,
       hotel_details: {
@@ -1401,7 +1285,7 @@
   }
 
   function selectRoomType(roomId, roomName, propertyId) {
-    addMessage('user', `Check availability for ${roomName}`);
+    addLoadingMessage(`Checking availability for ${roomName}...`);
     sendToBackend({
       message: `Check room availability: ${roomName}`,
       room_selection: {
@@ -1412,9 +1296,44 @@
     });
   }
 
-  // ===== END HOTEL GALLERY FUNCTIONS =====
+  // ===== LOADING MESSAGE FUNCTIONS =====
 
-  // Core functions
+  function addLoadingMessage(message) {
+    const messagesContainer = document.getElementById('chatMessages');
+    const messageDiv = document.createElement('div');
+    const uniqueId = 'loadingMessage_' + Date.now(); // Create unique ID
+    messageDiv.className = 'message assistant loading-message';
+    messageDiv.id = uniqueId;
+
+    const now = new Date();
+    const timeString = now.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
+
+    messageDiv.innerHTML = `
+            <div class="message-avatar">S</div>
+            <div class="message-content">
+                ${message}
+                <div class="typing-dots" style="margin-top: 10px;">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+                <div class="message-time">${timeString}</div>
+            </div>
+        `;
+
+    messagesContainer.appendChild(messageDiv);
+    scrollToBottom();
+  }
+
+  function removeLoadingMessage() {
+    const loadingMessage = document.getElementById('loadingMessage');
+    if (loadingMessage) {
+      loadingMessage.remove();
+    }
+  }
+
+  // ===== CORE FUNCTIONS =====
+
   function addMessage(sender, content) {
     const messagesContainer = document.getElementById('chatMessages');
     const messageDiv = document.createElement('div');
@@ -1557,21 +1476,33 @@
     chatInput.disabled = loading;
   }
 
-  async function sendToBackend(requestBody) {
-    showTypingIndicator();
-    setLoading(true);
+  async function sendToBackendSilent(requestBody) {
+    if (requestBody.is_initial_message) {
+      addLoadingMessage("Welcome! Let me set up your personalized experience... 🎉");
+    }
 
+
+    // Send request without showing typing indicator or UI updates
     try {
       if (conversationId) {
         requestBody.conversation_id = conversationId;
       }
 
-      // Include persona information if available
-      if (selectedPersona) {
-        requestBody.persona = selectedPersona;
+      // Add minimum 1 second delay for better UX
+      await new Promise(resolve => setTimeout(resolve, 500));
+      removeLoadingDots();
+      // Include user information if available
+      if (userName) {
+        requestBody.user_name = userName;
       }
-      if (userProfile) {
-        requestBody.user_profile = userProfile;
+      if (userEmail) {
+        requestBody.user_email = userEmail;
+      }
+      if (userCompany) {
+        requestBody.user_company = userCompany;
+      }
+      if (useMockHistory !== undefined) {
+        requestBody.use_mock_history = useMockHistory;
       }
 
       const response = await fetch('http://localhost:8080/chat', {
@@ -1592,11 +1523,76 @@
         conversationId = data.conversation_id;
       }
 
+      // Only show the assistant's response if it exists and is not just an acknowledgment
+      if (data.reply && data.reply.trim() && !data.is_acknowledgment) {
+        addMessage('assistant', data.reply);
+      }
+
+    } catch (error) {
+      console.error('Error in silent backend call:', error);
+      // Don't show error to user for silent calls
+    }
+  }
+
+  async function sendToBackend(requestBody) {
+    // Don't show typing indicator if we already have a loading message
+    const hasLoadingMessage = document.querySelector('.loading-message');
+
+    if (!hasLoadingMessage) {
+      showTypingIndicator();
+    }
+
+    setLoading(true);
+
+    try {
+      if (conversationId) {
+        requestBody.conversation_id = conversationId;
+      }
+
+      // Include user information if available
+      if (userName) {
+        requestBody.user_name = userName;
+      }
+      if (userEmail) {
+        requestBody.user_email = userEmail;
+      }
+      if (userCompany) {
+        requestBody.user_company = userCompany;
+      }
+      if (useMockHistory !== undefined) {
+        requestBody.use_mock_history = useMockHistory;
+      }
+
+      const response = await fetch('http://localhost:8080/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody)
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (!conversationId && data.conversation_id) {
+        conversationId = data.conversation_id;
+      }
+
+      // Add minimum 1 second delay for better UX
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      // Remove loading dots but keep the message
+      removeLoadingDots();
+
       hideTypingIndicator();
       addMessage('assistant', data.reply || data.message || data.response || 'I received your message.');
 
     } catch (error) {
       console.error('Error:', error);
+      removeLoadingMessage();
       hideTypingIndicator();
       addMessage('assistant', 'I had trouble processing your request. Please try again.');
     } finally {
@@ -1608,6 +1604,34 @@
     }
   }
 
+    // Generic loading messages
+    const genericLoadingMessages = [
+      "Just a moment while I work on that for you! ✨",
+      "Let me check that for you real quick! 🔍",
+      "Working on it! This should just take a second... ⏳",
+      "Give me just a moment to find the best options! 🌟",
+      "I'm on it! Searching for what you need... 🚀",
+      "One moment please, I'm gathering the information! 📋",
+      "Almost there! Just processing your request... 💫",
+      "Hold tight! I'm finding exactly what you're looking for! 🎯",
+      "Just a sec! I'm working my magic for you... ✨",
+      "Let me get that sorted for you right away! 💼"
+    ];
+
+    function getRandomLoadingMessage() {
+      return genericLoadingMessages[Math.floor(Math.random() * genericLoadingMessages.length)];
+    }
+
+   function removeLoadingDots() {
+  // Find all loading messages and remove dots from all of them
+  const loadingMessages = document.querySelectorAll('.loading-message');
+  loadingMessages.forEach(loadingMessage => {
+    const dotsDiv = loadingMessage.querySelector('.typing-dots');
+    if (dotsDiv) {
+      dotsDiv.remove();
+    }
+  });
+}
   async function sendMessage() {
     const chatInput = document.getElementById('chatInput');
     const message = chatInput.value.trim();
@@ -1619,28 +1643,14 @@
     chatInput.value = '';
     chatInput.style.height = 'auto';
 
+    // Add generic loading message
+    addLoadingMessage(getRandomLoadingMessage());
+
     await sendToBackend({message: message});
 
     setTimeout(() => {
       chatInput.focus();
     }, 50);
-  }
-
-  function showInitialMessage() {
-    setTimeout(() => {
-      addMessage('assistant',
-          "<p><strong>Hello! I'm Sophie, your corporate travel assistant from Grapevine.</strong></p>" +
-          "<p>I'm here to help you find the right hotel for your business trips, check availability, and make smart suggestions based on your travel needs.</p>" +
-          "<p><strong>🔐 If your company is subscribed to Sophie:</strong><br>" +
-          "&nbsp;&nbsp;• I can look up your upcoming trips<br>" +
-          "&nbsp;&nbsp;• I can personalize your experience using past travel preferences<br>" +
-          "To enable these features, just provide your <strong>last name and work email</strong>.</p>" +
-          "<p><strong>🌐 If you're not part of a subscribed company:</strong><br>" +
-          "&nbsp;&nbsp;• I can still help you find hotels based on your destination, travel dates, and preferences<br>" +
-          "&nbsp;&nbsp;• I'll ask for a few quick details and suggest top-rated options nearby</p>" +
-          "<p>Let me know where you're headed or what you need help with — and we'll get started!</p>"
-      );
-    }, 1000);
   }
 
   // Initialize
@@ -1664,8 +1674,6 @@
       this.style.height = 'auto';
       this.style.height = Math.min(this.scrollHeight, 120) + 'px';
     });
-
-    // Don't show initial message automatically - wait for user interaction
   });
 </script>
 </body>

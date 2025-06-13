@@ -112,6 +112,10 @@ def run_chat(user_message: str, conversation_id: str, session_store: dict,
 
   # Get current messages and add user message
   messages = session_store[conversation_id]
+  initial_mock = False
+  if "I would like to use mock travel history for demonstration purposes." in user_message:
+    user_message = user_message.replace("I would like to use mock travel history for demonstration purposes.", "").strip()
+    initial_mock = True
   messages.append({"role": "user", "content": user_message})
 
   # Apply context management BEFORE making API call
@@ -147,7 +151,7 @@ def run_chat(user_message: str, conversation_id: str, session_store: dict,
           tool_name = tool_call.function.name
           arguments = json.loads(tool_call.function.arguments)
 
-          result = handle_function_call(tool_name, arguments)
+          result = handle_function_call(tool_name, arguments, initial_mock)
           reply = short_circuit.handle(tool_name, result)
 
           messages.append({
