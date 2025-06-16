@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversation Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background: #fafafa;
+        }
+
+        .section h2 {
+            color: #555;
+            margin-top: 0;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #666;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 80px;
+            resize: vertical;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .get-btn {
+            background-color: #28a745;
+        }
+
+        .get-btn:hover {
+            background-color: #1e7e34;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 13px;
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .clear-btn {
+            background-color: #6c757d;
+            font-size: 12px;
+            padding: 8px 12px;
+        }
+
+        .clear-btn:hover {
+            background-color: #545b62;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Conversation Store Interface</h1>
+
+        <!-- GET Section -->
+        <div class="section">
+            <h2>Get Value</h2>
+            <div class="form-group">
+                <label for="getKey">Key:</label>
+                <input type="text" id="getKey" placeholder="Enter key to retrieve">
+            </div>
+            <button class="get-btn" onclick="getValue()">Get Value</button>
+            <button class="clear-btn" onclick="clearGetResult()">Clear</button>
+            <div id="getResult"></div>
+        </div>
+
+        <!-- POST/PUT Section -->
+        <div class="section">
+            <h2>Set/Update Value</h2>
+            <div class="form-group">
+                <label for="setKey">Key:</label>
+                <input type="text" id="setKey" placeholder="Enter key to set/update">
+            </div>
+            <div class="form-group">
+                <label for="setValue">Value:</label>
+                <textarea id="setValue" placeholder="Enter value to store"></textarea>
+            </div>
+            <button onclick="setValue()">Set Value</button>
+            <button class="clear-btn" onclick="clearSetResult()">Clear</button>
+            <div id="setResult"></div>
+        </div>
+    </div>
+
+    <script>
+        const BASE_URL = 'http://localhost:8080'; // Change this to your backend URL
+
+        async function getValue() {
+            const key = document.getElementById('getKey').value.trim();
+            const resultDiv = document.getElementById('getResult');
+
+            if (!key) {
+                showResult(resultDiv, 'Please enter a key', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${BASE_URL}/conversation/${encodeURIComponent(key)}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showResult(resultDiv, `Success!\nKey: ${data.key}\nValue: ${data.value}`, 'success');
+                } else {
+                    showResult(resultDiv, `Error: ${data.error}`, 'error');
+                }
+
+            } catch (error) {
+                showResult(resultDiv, `Network Error: ${error.message}`, 'error');
+            }
+        }
+
+        async function setValue() {
+            const key = document.getElementById('setKey').value.trim();
+            const value = document.getElementById('setValue').value;
+            const resultDiv = document.getElementById('setResult');
+
+            if (!key) {
+                showResult(resultDiv, 'Please enter a key', 'error');
+                return;
+            }
+
+            if (!value) {
+                showResult(resultDiv, 'Please enter a value', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${BASE_URL}/conversation/${encodeURIComponent(key)}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ value: value })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showResult(resultDiv, `Success!\n${data.message}\nKey: ${data.key}\nValue: ${data.value}`, 'success');
+                } else {
+                    showResult(resultDiv, `Error: ${data.error}`, 'error');
+                }
+
+            } catch (error) {
+                showResult(resultDiv, `Network Error: ${error.message}`, 'error');
+            }
+        }
+
+        function showResult(element, message, type) {
+            element.innerHTML = `<div class="result ${type}">${message}</div>`;
+        }
+
+        function clearGetResult() {
+            document.getElementById('getResult').innerHTML = '';
+            document.getElementById('getKey').value = '';
+        }
+
+        function clearSetResult() {
+            document.getElementById('setResult').innerHTML = '';
+            document.getElementById('setKey').value = '';
+            document.getElementById('setValue').value = '';
+        }
+
+        // Handle Enter key
+        document.getElementById('getKey').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                getValue();
+            }
+        });
+
+        document.getElementById('setKey').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('setValue').focus();
+            }
+        });
+
+        document.getElementById('setValue').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && e.ctrlKey) {
+                setValue();
+            }
+        });
+    </script>
+</body>
+</html>

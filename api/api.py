@@ -1,3 +1,6 @@
+import html
+import json
+
 from flask import Flask, request, jsonify
 from pydantic import BaseModel
 from uuid import uuid4
@@ -48,3 +51,36 @@ def login():
 
 # if __name__ == "__main__":
 #     app.run(debug=True, port=8080, use_reloader=False)
+
+@app.route("/conversation/<key>", methods=["GET"])
+def get_conversation(key):
+  """
+    Retrieve the value for a specific key from conversation_store.
+    """
+  value = conversation_store.get(key)
+  if value is None:
+    return jsonify({"error": f"Key '{key}' not found"}), 404
+
+  # Escape HTML in value for safety
+  escaped_value = html.escape(value[0]['content'])
+  return json.dumps({
+    "value": escaped_value,
+    "key": key}), 200
+
+
+@app.route("/conversation/<key>", methods=["POST", "PUT"])
+def upsert_conversation(key):
+  """
+    Upsert (insert/update) the value for a specific key in conversation_store.
+    """
+  data = request.get_json()
+  if not data or "value" not in data:
+    return jsonify({"error": "Missing 'value' in request data"}), 400
+
+  value = html.unescape(data["value"])
+  if key not in conversation_store:
+    conversation_store[key] = [None]  # Initialize the list for the key if not exists
+
+  conversation_store[key][0]['content'] = value
+
+  return jsonify({"message": f"Key '{key}' has been set", "key": key, "value": value}), 200
