@@ -320,7 +320,7 @@ class MockUserService:
       hotels = self.mock_hotels["glasgow"]
     else:
       # Default to London hotels if coordinates don't match known areas
-      hotels = self.mock_hotels["london"]
+      hotels = []
 
     # Return top 5 hotels sorted by booking_count (already sorted in mock data)
     return hotels[:5]

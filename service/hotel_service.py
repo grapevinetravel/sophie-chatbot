@@ -20,7 +20,7 @@ class HotelSearch:
         auth_credentials=Auth.api_key(weaviate_api_key),
         headers=headers
     )
-    self.hotel_collection = self.client.collections.get("HotelCollectionNewNew")
+    self.hotel_collection = self.client.collections.get("HotelCollectionFull")
 
   def search_hotels(
       self,

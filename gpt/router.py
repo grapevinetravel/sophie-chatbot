@@ -53,6 +53,7 @@ def handle_function_call(name, arguments, initial_mock):
     else:
       result = {"error": "Unknown function"}
   except Exception as e:
+    result = {"error": "error"}
     print("ERROR DURING TOOL CALL " + name + arguments)
 
 
