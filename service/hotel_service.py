@@ -7,6 +7,7 @@ from weaviate.collections.classes.grpc import MetadataQuery, GroupBy
 from weaviate.collections.classes.types import GeoCoordinate
 
 openai_key = os.getenv("OPENAI_APIKEY")
+
 weaviate_api_key = os.getenv("WEAVIATE_API_KEY")
 class HotelSearch:
   def __init__(self):
@@ -34,10 +35,23 @@ class HotelSearch:
   ) -> List[Dict]:
     filters = None
     if coords:
-      # Geo filter (e.g., within a certain radius of a location)
-      geo_filter = Filter.by_property("geol").within_geo_range(
-          coordinate=GeoCoordinate(latitude=coords.get('latitude'), longitude=coords.get('longitude')),
-          distance=radius_km * 1000)
+      if not isinstance(coords, dict) or "latitude" not in coords or "longitude" not in coords:
+          raise TypeError(
+              "`coords` must be a dict with keys 'latitude' and 'longitude' – "
+              f"got {coords!r}"
+          )
+
+      lat = coords["latitude"]
+      lon = coords["longitude"]
+
+      geo_filter = (
+          Filter
+          .by_property("geol")
+          .within_geo_range(
+              coordinate=GeoCoordinate(latitude=lat, longitude=lon),
+              distance=int(radius_km * 1000)          # Weaviate expects metres (int)
+          )
+      )
       filters = geo_filter
 
     if brand:
