@@ -5,27 +5,27 @@ import random
 
 class MockUserService:
   def __init__(self):
-    # Mock user data - 4 users with UK trips
+    # Mock user data - 4 users with US trips (including Denver)
     self.mock_users = {
       ("james.mitchell@salesforce-corp.com", "mitchell"): {
         "user_uuid": "a1b2c3d4-e5f6-7890-1234-567890abcdef",
         "corporation_id": 275071,
         "upcoming_flights": [
           {
-            "arrival_time": "2025-07-15T14:30:00Z",
-            "staying_until": "2025-07-18T10:00:00Z",
+            "arrival_time": "2025-08-04T14:30:00Z",
+            "staying_until": "2025-08-07T10:00:00Z",
             "origin": "London, GB (LHR)",
-            "destination": "Manchester, GB (MAN)",
-            "destination_lat": 53.3537,
-            "destination_lon": -2.2750
+            "destination": "Denver, US (DEN)",
+            "destination_lat": 39.7392,
+            "destination_lon": -104.9903
           },
           {
-            "arrival_time": "2025-08-22T09:15:00Z",
-            "staying_until": "2025-08-25T16:30:00Z",
+            "arrival_time": "2025-09-11T09:15:00Z",
+            "staying_until": "2025-09-14T16:30:00Z",
             "origin": "London, GB (LGW)",
-            "destination": "Edinburgh, GB (EDI)",
-            "destination_lat": 55.9500,
-            "destination_lon": -3.3725
+            "destination": "Austin, US (AUS)",
+            "destination_lat": 30.2672,
+            "destination_lon": -97.7431
           }
         ]
       },
@@ -34,20 +34,20 @@ class MockUserService:
         "corporation_id": 275071,
         "upcoming_flights": [
           {
-            "arrival_time": "2025-06-28T16:45:00Z",
-            "staying_until": "2025-06-30T12:00:00Z",
+            "arrival_time": "2025-07-18T16:45:00Z",
+            "staying_until": "2025-07-20T12:00:00Z",
             "origin": "Birmingham, GB (BHX)",
-            "destination": "London, GB (LHR)",
-            "destination_lat": 51.4700,
-            "destination_lon": -0.4543
+            "destination": "New York, US (JFK)",
+            "destination_lat": 40.7128,
+            "destination_lon": -74.0060
           },
           {
-            "arrival_time": "2025-09-10T11:20:00Z",
-            "staying_until": "2025-09-15T14:45:00Z",
+            "arrival_time": "2025-09-30T11:20:00Z",
+            "staying_until": "2025-10-05T14:45:00Z",
             "origin": "Manchester, GB (MAN)",
-            "destination": "Glasgow, GB (GLA)",
-            "destination_lat": 55.8719,
-            "destination_lon": -4.4331
+            "destination": "Seattle, US (SEA)",
+            "destination_lat": 47.6062,
+            "destination_lon": -122.3321
           }
         ]
       },
@@ -56,20 +56,20 @@ class MockUserService:
         "corporation_id": 275071,
         "upcoming_flights": [
           {
-            "arrival_time": "2025-07-03T13:10:00Z",
-            "staying_until": "2025-07-07T11:30:00Z",
+            "arrival_time": "2025-07-23T13:10:00Z",
+            "staying_until": "2025-07-27T11:30:00Z",
             "origin": "London, GB (STN)",
-            "destination": "Newcastle, GB (NCL)",
-            "destination_lat": 55.0375,
-            "destination_lon": -1.6917
+            "destination": "San Francisco, US (SFO)",
+            "destination_lat": 37.7749,
+            "destination_lon": -122.4194
           },
           {
-            "arrival_time": "2025-08-18T17:35:00Z",
-            "staying_until": "2025-08-22T09:20:00Z",
+            "arrival_time": "2025-09-07T17:35:00Z",
+            "staying_until": "2025-09-11T09:20:00Z",
             "origin": "London, GB (LTN)",
-            "destination": "Belfast, GB (BFS)",
-            "destination_lat": 54.6575,
-            "destination_lon": -6.2158
+            "destination": "Chicago, US (ORD)",
+            "destination_lat": 41.8781,
+            "destination_lon": -87.6298
           }
         ]
       },
@@ -78,196 +78,219 @@ class MockUserService:
         "corporation_id": 275071,
         "upcoming_flights": [
           {
-            "arrival_time": "2025-06-20T12:00:00Z",
-            "staying_until": "2025-06-24T15:30:00Z",
+            "arrival_time": "2025-07-10T12:00:00Z",
+            "staying_until": "2025-07-14T15:30:00Z",
             "origin": "Liverpool, GB (LPL)",
-            "destination": "London, GB (LHR)",
-            "destination_lat": 51.4700,
-            "destination_lon": -0.4543
+            "destination": "Boston, US (BOS)",
+            "destination_lat": 42.3601,
+            "destination_lon": -71.0589
           },
           {
-            "arrival_time": "2025-07-25T15:25:00Z",
-            "staying_until": "2025-07-28T13:15:00Z",
+            "arrival_time": "2025-08-14T15:25:00Z",
+            "staying_until": "2025-08-17T13:15:00Z",
             "origin": "Aberdeen, GB (ABZ)",
-            "destination": "Birmingham, GB (BHX)",
-            "destination_lat": 52.4539,
-            "destination_lon": -1.7480
+            "destination": "Miami, US (MIA)",
+            "destination_lat": 25.7617,
+            "destination_lon": -80.1918
           }
         ]
       }
     }
 
-    # Mock hotel data for different UK locations
+    # Mock hotel data for different US locations
     self.mock_hotels = {
-      # London area hotels
-      "london": [
+      # Denver area hotels
+      "denver": [
         {
-          "hotel_id": "8035714",
-          "name": "The Shard Hotel",
-          "address": "31 St Thomas Street, London SE1 9QU",
-          "latitude": 51.5045,
-          "longitude": -0.0865,
+          "hotel_id": "8260654",
+          "name": "The Crawford Hotel",
+          "address": "1701 Wynkoop Street, Denver, CO 80202",
+          "latitude": 39.7531,
+          "longitude": -105.0017,
           "booking_count": 245,
           "rating": 4.8,
-          "average_daily_rate": 320
+          "average_daily_rate": 285
         },
         {
-          "hotel_id": "11785569",
-          "name": "Premier Inn London County Hall",
-          "address": "Belvedere Road, London SE1 7PB",
-          "latitude": 51.5016,
-          "longitude": -0.1134,
+          "hotel_id": "9726",
+          "name": "Denver Marriott City Center",
+          "address": "1701 California Street, Denver, CO 80202",
+          "latitude": 39.7470,
+          "longitude": -104.9913,
           "booking_count": 198,
           "rating": 4.3,
-          "average_daily_rate": 125
+          "average_daily_rate": 165
         },
         {
-          "hotel_id": "1532724",
-          "name": "Hilton London Tower Bridge",
-          "address": "5 More London Place, London SE1 2BY",
-          "latitude": 51.5055,
-          "longitude": -0.0834,
+          "hotel_id": "24031",
+          "name": "Grand Hyatt Denver",
+          "address": "1750 Welton Street, Denver, CO 80202",
+          "latitude": 39.7449,
+          "longitude": -104.9814,
           "booking_count": 167,
           "rating": 4.5,
-          "average_daily_rate": 280
+          "average_daily_rate": 220
         }
       ],
-      # Manchester area hotels
-      "manchester": [
+      # New York area hotels
+      "new_york": [
         {
-          "hotel_id": "691209",
-          "name": "The Lowry Hotel",
-          "address": "50 Dearmans Place, Manchester M3 5LH",
-          "latitude": 53.4808,
-          "longitude": -2.2426,
-          "booking_count": 156,
+          "hotel_id": "28044",
+          "name": "The Plaza Hotel",
+          "address": "768 5th Avenue, New York, NY 10019",
+          "latitude": 40.7648,
+          "longitude": -73.9754,
+          "booking_count": 356,
           "rating": 4.6,
+          "average_daily_rate": 495
+        },
+        {
+          "hotel_id": "19681371",
+          "name": "Pod Hotels Times Square",
+          "address": "400 W 42nd Street, New York, NY 10036",
+          "latitude": 40.7589,
+          "longitude": -73.9928,
+          "booking_count": 234,
+          "rating": 4.1,
+          "average_daily_rate": 185
+        }
+      ],
+      # San Francisco area hotels
+      "san_francisco": [
+        {
+          "hotel_id": "1321986",
+          "name": "The St. Regis San Francisco",
+          "address": "125 3rd Street, San Francisco, CA 94103",
+          "latitude": 37.7854,
+          "longitude": -122.4005,
+          "booking_count": 142,
+          "rating": 4.7,
+          "average_daily_rate": 410
+        },
+        {
+          "hotel_id": "9868852",
+          "name": "Hotel Zephyr San Francisco",
+          "address": "Pier 39, San Francisco, CA 94133",
+          "latitude": 37.8098,
+          "longitude": -122.4098,
+          "booking_count": 118,
+          "rating": 4.2,
+          "average_daily_rate": 255
+        }
+      ],
+      # Chicago area hotels
+      "chicago": [
+        {
+          "hotel_id": "8079",
+          "name": "The Palmer House Hilton",
+          "address": "17 E Monroe Street, Chicago, IL 60603",
+          "latitude": 41.8806,
+          "longitude": -87.6267,
+          "booking_count": 127,
+          "rating": 4.3,
           "average_daily_rate": 195
         },
         {
-          "hotel_id": "1044199",
-          "name": "Radisson Blu Edwardian Manchester",
-          "address": "Free Trade Hall, Peter Street, Manchester M2 5GP",
-          "latitude": 53.4776,
-          "longitude": -2.2463,
-          "booking_count": 134,
-          "rating": 4.4,
-          "average_daily_rate": 165
-        }
-      ],
-      # Edinburgh area hotels
-      "edinburgh": [
-        {
-          "hotel_id": "570820",
-          "name": "The Scotsman Hotel",
-          "address": "20 North Bridge, Edinburgh EH1 1TR",
-          "latitude": 55.9533,
-          "longitude": -3.1883,
-          "booking_count": 142,
-          "rating": 4.7,
-          "average_daily_rate": 210
-        },
-        {
-          "hotel_id": "7728219",
-          "name": "Hotel du Vin Edinburgh",
-          "address": "11 Bristo Place, Edinburgh EH1 1EZ",
-          "latitude": 55.9467,
-          "longitude": -3.1925,
-          "booking_count": 118,
-          "rating": 4.2,
-          "average_daily_rate": 155
-        }
-      ],
-      # Birmingham area hotels
-      "birmingham": [
-        {
-          "hotel_id": "7727274",
-          "name": "Hotel du Vin Birmingham",
-          "address": "25 Church Street, Birmingham B3 2NR",
-          "latitude": 52.4862,
-          "longitude": -1.8904,
-          "booking_count": 127,
-          "rating": 4.3,
-          "average_daily_rate": 145
-        },
-        {
-          "hotel_id": "787701",
-          "name": "AC Hotel by Marriott Birmingham",
-          "address": "81-87 Snow Hill, Birmingham B4 6HH",
-          "latitude": 52.4834,
-          "longitude": -1.8998,
+          "hotel_id": "18035",
+          "name": "Chicago Marriott Downtown",
+          "address": "540 N Michigan Avenue, Chicago, IL 60611",
+          "latitude": 41.8925,
+          "longitude": -87.6244,
           "booking_count": 103,
           "rating": 4.1,
-          "average_daily_rate": 125
+          "average_daily_rate": 165
         }
       ],
-      # Newcastle area hotels
-      "newcastle": [
+      # Boston area hotels
+      "boston": [
         {
-          "hotel_id": "7728462",
-          "name": "Hotel du Vin Newcastle",
-          "address": "City Road, Newcastle upon Tyne NE1 2BE",
-          "latitude": 54.9783,
-          "longitude": -1.6178,
+          "hotel_id": "2558",
+          "name": "The Langham Boston",
+          "address": "250 Franklin Street, Boston, MA 02110",
+          "latitude": 42.3554,
+          "longitude": -71.0640,
           "booking_count": 89,
           "rating": 4.4,
-          "average_daily_rate": 135
+          "average_daily_rate": 335
         },
         {
-          "hotel_id": "9610649",
-          "name": "Crowne Plaza Newcastle",
-          "address": "Stephenson Quarter, Newcastle upon Tyne NE1 3SA",
-          "latitude": 54.9689,
-          "longitude": -1.6062,
+          "hotel_id": "26146",
+          "name": "Boston Harbor Hotel",
+          "address": "70 Rowes Wharf, Boston, MA 02110",
+          "latitude": 42.3570,
+          "longitude": -71.0518,
           "booking_count": 76,
-          "rating": 4.1,
-          "average_daily_rate": 110
+          "rating": 4.6,
+          "average_daily_rate": 410
         }
       ],
-      # Belfast area hotels
-      "belfast": [
+      # Miami area hotels
+      "miami": [
         {
-          "hotel_id": "1406421",
-          "name": "The Merchant Hotel",
-          "address": "16 Skipper Street, Belfast BT1 2DZ",
-          "latitude": 54.6014,
-          "longitude": -5.9302,
+          "hotel_id": "1126560",
+          "name": "The Setai Miami Beach",
+          "address": "2001 Collins Avenue, Miami Beach, FL 33139",
+          "latitude": 25.7907,
+          "longitude": -80.1300,
           "booking_count": 93,
           "rating": 4.7,
-          "average_daily_rate": 180
+          "average_daily_rate": 480
         },
         {
-          "hotel_id": "79018",
-          "name": "Europa Hotel Belfast",
-          "address": "Great Victoria Street, Belfast BT2 7AP",
-          "latitude": 54.5947,
-          "longitude": -5.9341,
+          "hotel_id": "456566",
+          "name": "JW Marriott Miami",
+          "address": "1109 Brickell Avenue, Miami, FL 33131",
+          "latitude": 25.7617,
+          "longitude": -80.1918,
           "booking_count": 71,
           "rating": 4.2,
-          "average_daily_rate": 95
+          "average_daily_rate": 295
         }
       ],
-      # Glasgow area hotels
-      "glasgow": [
+      # Seattle area hotels
+      "seattle": [
         {
-          "hotel_id": "7728220",
-          "name": "Hotel du Vin Glasgow",
-          "address": "1 Devonshire Gardens, Glasgow G12 0UX",
-          "latitude": 55.8750,
-          "longitude": -4.2894,
+          "hotel_id": "20230",
+          "name": "The Fairmont Olympic Hotel",
+          "address": "411 University Street, Seattle, WA 98101",
+          "latitude": 47.6089,
+          "longitude": -122.3356,
           "booking_count": 86,
           "rating": 4.5,
-          "average_daily_rate": 165
+          "average_daily_rate": 365
         },
         {
-          "hotel_id": "894917",
-          "name": "Radisson Blu Hotel Glasgow",
-          "address": "301 Argyle Street, Glasgow G2 8DL",
-          "latitude": 55.8578,
-          "longitude": -4.2692,
+          "hotel_id": "16950",
+          "name": "Hotel Andra Seattle",
+          "address": "2000 4th Avenue, Seattle, WA 98121",
+          "latitude": 47.6134,
+          "longitude": -122.3414,
           "booking_count": 68,
           "rating": 4.3,
-          "average_daily_rate": 125
+          "average_daily_rate": 225
+        }
+      ],
+      # Austin area hotels
+      "austin": [
+        {
+          "hotel_id": "10269315",
+          "name": "Hotel Van Zandt",
+          "address": "605 Davis Street, Austin, TX 78701",
+          "latitude": 30.2638,
+          "longitude": -97.7531,
+          "booking_count": 95,
+          "rating": 4.4,
+          "average_daily_rate": 285
+        },
+        {
+          "hotel_id": "8778760",
+          "name": "JW Marriott Austin",
+          "address": "110 E 2nd Street, Austin, TX 78701",
+          "latitude": 30.2648,
+          "longitude": -97.7404,
+          "booking_count": 82,
+          "rating": 4.2,
+          "average_daily_rate": 350
         }
       ]
     }
@@ -303,23 +326,25 @@ class MockUserService:
 
   def get_hotels_by_corporate_geo(self, lat: float, long: float, corporate_id: int, radius_meters: int = 5000):
     """Mock version of get_hotels_by_corporate_geo"""
-    # Determine location based on coordinates (rough UK city mapping)
-    if 51.4 <= lat <= 51.6 and -0.5 <= long <= 0.1:  # London area
-      hotels = self.mock_hotels["london"]
-    elif 53.3 <= lat <= 53.4 and -2.3 <= long <= -2.2:  # Manchester area
-      hotels = self.mock_hotels["manchester"]
-    elif 55.9 <= lat <= 56.0 and -3.4 <= long <= -3.1:  # Edinburgh area
-      hotels = self.mock_hotels["edinburgh"]
-    elif 52.4 <= lat <= 52.5 and -1.95 <= long <= -1.7:  # Birmingham area
-      hotels = self.mock_hotels["birmingham"]
-    elif 54.9 <= lat <= 55.1 and -1.7 <= long <= -1.6:  # Newcastle area
-      hotels = self.mock_hotels["newcastle"]
-    elif 54.6 <= lat <= 54.7 and -6.3 <= long <= -5.9:  # Belfast area
-      hotels = self.mock_hotels["belfast"]
-    elif 55.8 <= lat <= 55.9 and -4.5 <= long <= -4.2:  # Glasgow area
-      hotels = self.mock_hotels["glasgow"]
+    # Determine location based on coordinates (US city mapping)
+    if 39.6 <= lat <= 39.8 and -105.1 <= long <= -104.9:  # Denver area
+      hotels = self.mock_hotels["denver"]
+    elif 40.6 <= lat <= 40.8 and -74.1 <= long <= -73.9:  # New York area
+      hotels = self.mock_hotels["new_york"]
+    elif 37.7 <= lat <= 37.8 and -122.5 <= long <= -122.3:  # San Francisco area
+      hotels = self.mock_hotels["san_francisco"]
+    elif 41.8 <= lat <= 41.9 and -87.7 <= long <= -87.6:  # Chicago area
+      hotels = self.mock_hotels["chicago"]
+    elif 42.3 <= lat <= 42.4 and -71.1 <= long <= -71.0:  # Boston area
+      hotels = self.mock_hotels["boston"]
+    elif 25.7 <= lat <= 25.8 and -80.2 <= long <= -80.1:  # Miami area
+      hotels = self.mock_hotels["miami"]
+    elif 47.5 <= lat <= 47.7 and -122.4 <= long <= -122.3:  # Seattle area
+      hotels = self.mock_hotels["seattle"]
+    elif 30.2 <= lat <= 30.3 and -97.8 <= long <= -97.7:  # Austin area
+      hotels = self.mock_hotels["austin"]
     else:
-      # Default to London hotels if coordinates don't match known areas
+      # Default to empty list if coordinates don't match known areas
       hotels = []
 
     # Return top 5 hotels sorted by booking_count (already sorted in mock data)
