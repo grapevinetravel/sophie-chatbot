@@ -876,7 +876,7 @@
        3) Replace placeholders ({{user}}) the backend forgot to fill */
 
     // 1. Strip any leading "Assistant: "
-    originalText = originalText.replace('Select for Hotel Search', 'Find Hotels for Denver');
+    originalText = originalText.replace('Select for Hotel Search', 'Find Hotels for Amsterdam');
 
     originalText = originalText.replace('Select for Hotel Search', 'Find Hotels for Austin');
 
@@ -886,7 +886,7 @@
   async function startChatSession() {
     // Send login request to backend with default values
     try {
-      await fetch('http://localhost:8082/login', {
+      await fetch('https://europe-west1-grapevine-v2-feb-2025.cloudfunctions.net/sophie-chatbot-be-production/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -915,8 +915,8 @@
     await delay(3000);
     hideTypingIndicator();
     addMessage('assistant',
-      `Ok great. I can see you have 2 upcoming trips. The first is to Denver, CO on August 4th ` +
-      `and the second is to Austin, TX on September 11th. Which one would you like me to recommend hotels for?`
+      `Ok great. I can see you have 2 upcoming trips. The first is to Amsterdam on August 4th ` +
+      `and the second is to Austin, TX on August 11th. Which one would you like me to recommend hotels for?`
     );
 
 
@@ -1535,7 +1535,7 @@
         requestBody.use_mock_history = useMockHistory;
       }
 
-      const response = await fetch('http://localhost:8082/chat', {
+      const response = await fetch('https://europe-west1-grapevine-v2-feb-2025.cloudfunctions.net/sophie-chatbot-be-production/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -1594,7 +1594,7 @@
         requestBody.use_mock_history = useMockHistory;
       }
 
-      const response = await fetch('http://localhost:8082/chat', {
+      const response = await fetch('https://europe-west1-grapevine-v2-feb-2025.cloudfunctions.net/sophie-chatbot-be-production/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

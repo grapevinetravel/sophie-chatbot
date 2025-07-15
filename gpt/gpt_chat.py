@@ -151,8 +151,19 @@ def run_chat(user_message: str, conversation_id: str, session_store: dict,
           tool_name = tool_call.function.name
           arguments = json.loads(tool_call.function.arguments)
 
-          result = handle_function_call(tool_name, arguments, initial_mock)
-          reply = short_circuit.handle(tool_name, result)
+          try:
+            # Safely handle the function call
+            result = handle_function_call(tool_name, arguments, initial_mock)
+          except Exception as e:
+            # If an error occurs, set result to "error"
+            result = "error"
+
+          try:
+            # Safely process short_circuit handling
+            reply = short_circuit.handle(tool_name, result)
+          except Exception as e:
+            # If an error occurs during reply creation, set reply to None
+            reply = None
 
           messages.append({
             "role": "tool",

@@ -5,7 +5,7 @@ import random
 
 class MockUserService:
   def __init__(self):
-    # Mock user data - 4 users with US trips (including Denver)
+    # Mock user data - 4 users with US trips (including Amsterdam)
     self.mock_users = {
       ("james.mitchell@salesforce-corp.com", "mitchell"): {
         "user_uuid": "a1b2c3d4-e5f6-7890-1234-567890abcdef",
@@ -15,13 +15,13 @@ class MockUserService:
             "arrival_time": "2025-08-04T14:30:00Z",
             "staying_until": "2025-08-07T10:00:00Z",
             "origin": "London, GB (LHR)",
-            "destination": "Denver, US (DEN)",
-            "destination_lat": 39.7392,
-            "destination_lon": -104.9903
+            "destination": "Amsterdam, NL (AMS)",
+            "destination_lat": 52.3676,
+            "destination_lon": 4.9041
           },
           {
-            "arrival_time": "2025-09-11T09:15:00Z",
-            "staying_until": "2025-09-14T16:30:00Z",
+            "arrival_time": "2025-08-11T09:15:00Z",
+            "staying_until": "2025-08-14T16:30:00Z",
             "origin": "London, GB (LGW)",
             "destination": "Austin, US (AUS)",
             "destination_lat": 30.2672,
@@ -97,39 +97,39 @@ class MockUserService:
       }
     }
 
-    # Mock hotel data for different US locations
+    # Mock hotel data for different locations
     self.mock_hotels = {
-      # Denver area hotels
-      "denver": [
+      # Amsterdam area hotels
+      "amsterdam": [
         {
-          "hotel_id": "8260654",
-          "name": "The Crawford Hotel",
-          "address": "1701 Wynkoop Street, Denver, CO 80202",
-          "latitude": 39.7531,
-          "longitude": -105.0017,
+          "hotel_id": "8482",
+          "name": "The Hoxton Amsterdam",
+          "address": "Herengracht 255, 1016 BJ Amsterdam, Netherlands",
+          "latitude": 52.3707,
+          "longitude": 4.8838,
           "booking_count": 245,
           "rating": 4.8,
           "average_daily_rate": 285
         },
         {
-          "hotel_id": "9726",
-          "name": "Denver Marriott City Center",
-          "address": "1701 California Street, Denver, CO 80202",
-          "latitude": 39.7470,
-          "longitude": -104.9913,
+          "hotel_id": "25812",
+          "name": "Amsterdam Marriott Hotel",
+          "address": "Stadhouderskade 12, 1054 ES Amsterdam, Netherlands",
+          "latitude": 52.3611,
+          "longitude": 4.8826,
           "booking_count": 198,
           "rating": 4.3,
-          "average_daily_rate": 165
+          "average_daily_rate": 300
         },
         {
-          "hotel_id": "24031",
-          "name": "Grand Hyatt Denver",
-          "address": "1750 Welton Street, Denver, CO 80202",
-          "latitude": 39.7449,
-          "longitude": -104.9814,
-          "booking_count": 167,
-          "rating": 4.5,
-          "average_daily_rate": 220
+          "hotel_id": "3408",
+          "name": "Hilton Amsterdam",
+          "address": "Apollolaan 138, 1077 BG Amsterdam, Netherlands",
+          "latitude": 52.3496,
+          "longitude": 4.8731,
+          "booking_count": 4017,
+          "rating": 4.0,
+          "average_daily_rate": 380
         }
       ],
       # New York area hotels
@@ -326,9 +326,9 @@ class MockUserService:
 
   def get_hotels_by_corporate_geo(self, lat: float, long: float, corporate_id: int, radius_meters: int = 5000):
     """Mock version of get_hotels_by_corporate_geo"""
-    # Determine location based on coordinates (US city mapping)
-    if 39.6 <= lat <= 39.8 and -105.1 <= long <= -104.9:  # Denver area
-      hotels = self.mock_hotels["denver"]
+    # Determine location based on coordinates
+    if 52.3 <= lat <= 52.4 and 4.8 <= long <= 4.95:  # Amsterdam area
+      hotels = self.mock_hotels["amsterdam"]
     elif 40.6 <= lat <= 40.8 and -74.1 <= long <= -73.9:  # New York area
       hotels = self.mock_hotels["new_york"]
     elif 37.7 <= lat <= 37.8 and -122.5 <= long <= -122.3:  # San Francisco area
