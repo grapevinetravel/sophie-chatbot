@@ -14,7 +14,7 @@ secrets:
   OPENAI_API_KEY: projects/grapevine-v2-feb-2025/secrets/OPENAI_APIKEY:latest
   WEAVIATE_API_KEY: projects/grapevine-v2-feb-2025/secrets/WEAVIATE_API_KEY:latest
   MAPBOX_ACCESS_TOKEN: projects/grapevine-v2-feb-2025/secrets/MAPBOX_ACCESS_TOKEN:latest
-  TINYBIRD_TOKEN: projects/grapevine-v2-feb-2025/secrets/TINYBIRD_TOKEN_PROD:latest
+  TINYBIRD_TOKEN: projects/grapevine-v2-feb-2025/secrets/TINYBIRD_TOKEN_READWRITE_DEV:latest
 
 env_vars:
   ENV: production
