@@ -9,17 +9,47 @@ from weaviate.collections.classes.types import GeoCoordinate
 openai_key = os.getenv("OPENAI_APIKEY")
 
 weaviate_api_key = os.getenv("WEAVIATE_API_KEY")
+# The Weaviate Cloud cluster that backs hotel vector search. Overridable so that moving or
+# restoring the cluster is a configuration change rather than a code change.
+WEAVIATE_CLUSTER_URL = os.getenv(
+    "WEAVIATE_CLUSTER_URL",
+    "gqubiqfprlyhx89xcwlma.c0.europe-west3.gcp.weaviate.cloud",
+)
+
+
 class HotelSearch:
+  """Vector hotel search over Weaviate.
+
+  The connection is opened on first search, not in __init__. It used to be opened here, and
+  that made an unreachable cluster fatal to the entire service: router.py constructs this
+  object at module level, so connect_to_weaviate_cloud() ran during import, and its exception
+  stopped the container ever listening on PORT. The function then failed its startup health
+  check and could not be deployed at all, on any runtime.
+
+  Connecting lazily keeps that failure inside the one tool call that needs it. router.py
+  catches it and returns an error result for that call, so the rest of the assistant works.
+  """
+
   def __init__(self):
-    headers = {
+    self._headers = {
       "X-OpenAI-Api-Key": openai_key,
     }
+    self.client = None
+    self.hotel_collection = None
 
-    # Connect to the Weaviate cluster
+  def _ensure_connected(self):
+    """Open the Weaviate connection if it is not already open.
+
+    Leaves hotel_collection as None when it fails, so a later call retries rather than
+    caching the failure for the life of the instance.
+    """
+    if self.hotel_collection is not None:
+      return
+
     self.client = weaviate.connect_to_weaviate_cloud(
-        cluster_url="gqubiqfprlyhx89xcwlma.c0.europe-west3.gcp.weaviate.cloud",
+        cluster_url=WEAVIATE_CLUSTER_URL,
         auth_credentials=Auth.api_key(weaviate_api_key),
-        headers=headers
+        headers=self._headers
     )
     self.hotel_collection = self.client.collections.get("HotelCollectionFull")
 
@@ -33,6 +63,8 @@ class HotelSearch:
       min_rating: Optional[float] = None,
       limit: int = 10
   ) -> List[Dict]:
+    self._ensure_connected()
+
     filters = None
     if coords:
       if not isinstance(coords, dict) or "latitude" not in coords or "longitude" not in coords:
