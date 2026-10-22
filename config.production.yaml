@@ -1,4 +1,4 @@
-runtime: python310
+runtime: python312
 region: europe-west1
 entrypoint: flask_entry_point
 timeout: 1800s
